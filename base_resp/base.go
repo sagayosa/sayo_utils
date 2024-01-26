@@ -1,6 +1,8 @@
 package baseresp
 
 import (
+	"fmt"
+
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	"github.com/grteen/sayo_utils/utils"
 )
@@ -16,8 +18,8 @@ func (r *BaseResp) WithData(data interface{}) *BaseResp {
 	return r
 }
 
-func (r *BaseResp) AppendMsg(msg string) *BaseResp {
-	r.Msg = utils.StringPlus(r.Msg, msg)
+func (r *BaseResp) AppendMsg(format string, a ...interface{}) *BaseResp {
+	r.Msg = utils.StringPlus(r.Msg, fmt.Sprintf(format, a...))
 	return r
 }
 
