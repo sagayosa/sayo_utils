@@ -45,3 +45,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrInvalidRole:         1004,
 	ErrAIChatFailed:        1005,
 }
+
+func Msg(err error, msg string) error {
+	return fmt.Errorf("%w, [msg]: %s", err, msg)
+}
