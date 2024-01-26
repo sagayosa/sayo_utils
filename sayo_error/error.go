@@ -26,6 +26,7 @@ var (
 	ErrRegisterFailed      = fmt.Errorf("modules register failed")
 	ErrUnknownType         = fmt.Errorf("unknown register type")
 	ErrInvalidRole         = fmt.Errorf("invalid register role")
+	ErrAIChatFailed        = fmt.Errorf("ai chat failed")
 )
 
 const (
@@ -42,4 +43,5 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrRegisterFailed:      1002,
 	ErrUnknownType:         1003,
 	ErrInvalidRole:         1004,
+	ErrAIChatFailed:        1005,
 }
