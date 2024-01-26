@@ -46,6 +46,6 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrAIChatFailed:        1005,
 }
 
-func Msg(err error, msg string) error {
-	return fmt.Errorf("%w, [msg]: %s", err, msg)
+func Msg(err error, format string, a ...interface{}) error {
+	return fmt.Errorf("%w, [msg]: %s", err, fmt.Sprintf(format, a...))
 }
