@@ -1,6 +1,9 @@
 package baseresp
 
-import sayoerror "github.com/grteen/sayo_utils/sayo_error"
+import (
+	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	"github.com/grteen/sayo_utils/utils"
+)
 
 type BaseResp struct {
 	Code int32       `json:"code"`
@@ -10,6 +13,11 @@ type BaseResp struct {
 
 func (r *BaseResp) WithData(data interface{}) *BaseResp {
 	r.Data = data
+	return r
+}
+
+func (r *BaseResp) AppendMsg(msg string) *BaseResp {
+	r.Msg = utils.StringPlus(r.Msg, msg)
 	return r
 }
 
