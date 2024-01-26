@@ -8,9 +8,10 @@ import (
 	"net"
 	"net/http"
 	"os"
-	baseresp "sayo_utils/base_resp"
-	sayolog "sayo_utils/sayo_log"
 	"strings"
+
+	baseresp "github.com/grteen/sayo_utils/base_resp"
+	sayolog "github.com/grteen/sayo_utils/sayo_log"
 
 	"github.com/kataras/iris/v12"
 )

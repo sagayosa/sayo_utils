@@ -1,6 +1,6 @@
 package baseresp
 
-import sayoerror "sayo_utils/sayo_error"
+import sayoerror "github.com/grteen/sayo_utils/sayo_error"
 
 type BaseResp struct {
 	Code int32       `json:"code"`
