@@ -9,7 +9,7 @@ import (
 type ModuleInterface interface {
 	GetRole() string
 	GetIdentifier() string
-	GetIPInfo() (string, int)
+	GetIPInfo() string
 }
 
 type Center struct {

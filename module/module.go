@@ -1,5 +1,11 @@
 package module
 
+import (
+	"strconv"
+
+	"github.com/grteen/sayo_utils/utils"
+)
+
 const (
 	RoleVoiceRecognize = "voice_recognize"
 	RoleVoiceGenerate  = "voice_generate"
@@ -39,6 +45,6 @@ func (m *ModuleInfo) GetRole() string {
 	return m.Role
 }
 
-func (m *ModuleInfo) GetIPInfo() (string, int) {
-	return m.Address, m.Port
+func (m *ModuleInfo) GetIPInfo() string {
+	return utils.StringPlus(m.Address, ":", strconv.Itoa(m.Port))
 }
