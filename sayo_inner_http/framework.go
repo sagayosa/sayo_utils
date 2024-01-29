@@ -30,17 +30,13 @@ func PullCenter(frameworkURL string) (result *module.Center, err error) {
 
 	type temp struct {
 		RoleMp map[string][]*module.Plugin `json:"role_map"`
-
-		IdMp map[string]*module.Plugin `json:"id_map"`
-
-		RootMp map[string]*module.Plugin `json:"root_map"`
 	}
-	t := &temp{}
+	t := &temp{RoleMp: make(map[string][]*module.Plugin)}
 	if err := utils.UnMarshalUnknownAny(resp.Data, t); err != nil {
 		return nil, err
 	}
 
-	result = &module.Center{}
+	result = module.NewCenter()
 	for _, s := range t.RoleMp {
 		for _, v := range s {
 			if err := result.RegisterModule(v); err != nil {
