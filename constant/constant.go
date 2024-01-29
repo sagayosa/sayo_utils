@@ -19,6 +19,7 @@ const (
 	GetModuleByRoleURL       = "/module/role"
 	GetModuleByRoleQueryRole = "role"
 
-	VoiceRecognizeURL = "/voice"
-	AICompletionsURL  = "/chat/completions"
+	VoiceRecognizeURL      = "/voice"
+	AICompletionsURL       = "/chat/completions"
+	FrameWorkPullCenterURL = "/module/pull"
 )

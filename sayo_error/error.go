@@ -34,6 +34,7 @@ var (
 	ErrNoVoiceGenerateModule  = fmt.Errorf("no voice generate module")
 	ErrNoAIModule             = fmt.Errorf("no ai module")
 	ErrVoiceRecognizeFailed   = fmt.Errorf("voice recognize module failed")
+	ErrPullCenterFailed       = fmt.Errorf("pull center failed")
 )
 
 const (
@@ -57,6 +58,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNoVoiceRecognizeModule: 1008,
 	ErrNoVoiceGenerateModule:  1009,
 	ErrNoAIModule:             1010,
+	ErrPullCenterFailed:       1011,
 }
 
 func Msg(err error, format string, a ...interface{}) error {
