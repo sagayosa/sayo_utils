@@ -149,7 +149,7 @@ var (
 	moduleCenterOnce     sync.Once
 )
 
-func newCenter() *Center {
+func NewCenter() *Center {
 	return &Center{
 		RoleMp: make(map[string][]ModuleInterface),
 		IdMp:   make(map[string]ModuleInterface),
@@ -159,7 +159,7 @@ func newCenter() *Center {
 
 func GetInstance() *Center {
 	moduleCenterOnce.Do(func() {
-		moduleCenterInstance = newCenter()
+		moduleCenterInstance = NewCenter()
 	})
 	return moduleCenterInstance
 }
