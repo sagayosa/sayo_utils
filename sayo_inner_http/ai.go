@@ -60,9 +60,9 @@ func PostAIDecisionRootCommand(aiAddr string, root []*module.Plugin, userCommand
 		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrAIChatFailed, int(resp.Code), resp.Msg)
 	}
 
-	result, ok := resp.Data.(*AIDecisionResp)
-	if !ok {
-		return nil, sayoerror.Msg(sayoerror.ErrAIChatFailed, "%v", "type cast failed")
+	result = &AIDecisionResp{}
+	if err := utils.UnMarshalUnknownAny(resp.Data, result); err != nil {
+		return nil, err
 	}
 
 	return result, nil

@@ -28,9 +28,9 @@ func PullCenter(frameworkURL string) (result *module.Center, err error) {
 		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrPullCenterFailed, int(resp.Code), resp.Msg)
 	}
 
-	result, ok := resp.Data.(*module.Center)
-	if !ok {
-		return nil, sayoerror.Msg(sayoerror.ErrPullCenterFailed, "%v", "can't cast data to Center")
+	result = &module.Center{}
+	if err := utils.UnMarshalUnknownAny(resp.Data, result); err != nil {
+		return nil, err
 	}
 
 	return result, nil
