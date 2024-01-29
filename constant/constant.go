@@ -7,6 +7,8 @@ const (
 	RoleAI             = "ai"
 	RoleClient         = "client"
 	RolePlugin         = "plugin"
+
+	GetAvailablePortRandomTimes = 3
 )
 
 var (

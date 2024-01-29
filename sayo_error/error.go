@@ -15,8 +15,9 @@ func GetErrMsgByErr(err error) (int32, string) {
 
 // internal server error
 var (
-	ErrRegisterJobFailed = fmt.Errorf("register job failed")
-	ErrRunModulesFailed  = fmt.Errorf("register job run modules failed")
+	ErrRegisterJobFailed            = fmt.Errorf("register job failed")
+	ErrRunModulesFailed             = fmt.Errorf("register job run modules failed")
+	ErrGetAvailablePortTimesLimited = fmt.Errorf("get available port failed")
 )
 
 // web info error
@@ -41,8 +42,9 @@ const (
 )
 
 var errorMp map[error]int32 = map[error]int32{
-	ErrRegisterJobFailed: 500,
-	ErrRunModulesFailed:  501,
+	ErrRegisterJobFailed:            500,
+	ErrRunModulesFailed:             501,
+	ErrGetAvailablePortTimesLimited: 502,
 
 	ErrInternalServer:         1000,
 	ErrDuplicateIdentifier:    1001,

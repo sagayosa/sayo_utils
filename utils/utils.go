@@ -6,12 +6,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math/rand"
 	"net"
 	"net/http"
 	"net/url"
 	"os"
 	"reflect"
+	"strconv"
 	"strings"
+	"time"
+
+	"github.com/grteen/sayo_utils/constant"
+	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 )
 
 func StringPlus(segments ...string) string {
@@ -119,13 +125,35 @@ func ChangeRoutineWorkDir(workDir string) error {
 
 // could there be a better way?
 func GetAvailablePort() (int, error) {
-	listener, err := net.Listen("tcp", ":0")
-	if err != nil {
-		return 0, err
+	// listener, err := net.Listen("tcp", ":0")
+	// if err != nil {
+	// 	return 0, err
+	// }
+	// defer listener.Close()
+	// addr := listener.Addr().(*net.TCPAddr)
+	// return addr.Port, nil
+
+	f := func() (int, error) {
+		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		randomNumber := r.Intn(50001) + 10000
+		listener, err := net.Listen("tcp", StringPlus(":", strconv.Itoa(randomNumber)))
+		if err != nil {
+			return 0, err
+		}
+		defer listener.Close()
+		return randomNumber, nil
 	}
-	defer listener.Close()
-	addr := listener.Addr().(*net.TCPAddr)
-	return addr.Port, nil
+
+	for i := 0; i < constant.GetAvailablePortRandomTimes; i++ {
+		number, err := f()
+		if err != nil {
+			continue
+		}
+
+		return number, nil
+	}
+
+	return 0, sayoerror.ErrGetAvailablePortTimesLimited
 }
 
 func FillSameField(source interface{}, dest interface{}) {
