@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/grteen/sayo_utils/constant"
+	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	"github.com/grteen/sayo_utils/utils"
 )
@@ -21,13 +22,13 @@ func GetModuleByRole(frameworkAddr string, role string) (body []byte, err error)
 	return body, nil
 }
 
-func GetModuleVoiceRecognize(frameworkAddr string) (res []*Module, err error) {
+func GetModuleVoiceRecognize(frameworkAddr string) (res []*module.Module, err error) {
 	body, err := GetModuleByRole(frameworkAddr, constant.RoleVoiceRecognize)
 	if err != nil {
 		return
 	}
 
-	res = []*Module{}
+	res = []*module.Module{}
 	if err = json.Unmarshal(body, &res); err != nil {
 		return
 	}
@@ -35,13 +36,13 @@ func GetModuleVoiceRecognize(frameworkAddr string) (res []*Module, err error) {
 	return res, nil
 }
 
-func GetModuleVoiceGenerate(frameworkAddr string) (res []*Module, err error) {
+func GetModuleVoiceGenerate(frameworkAddr string) (res []*module.Module, err error) {
 	body, err := GetModuleByRole(frameworkAddr, constant.RoleVoiceGenerate)
 	if err != nil {
 		return
 	}
 
-	res = []*Module{}
+	res = []*module.Module{}
 	if err = json.Unmarshal(body, &res); err != nil {
 		return
 	}
@@ -49,13 +50,13 @@ func GetModuleVoiceGenerate(frameworkAddr string) (res []*Module, err error) {
 	return res, nil
 }
 
-func GetModuleCore(frameworkAddr string) (res []*Module, err error) {
+func GetModuleCore(frameworkAddr string) (res []*module.Module, err error) {
 	body, err := GetModuleByRole(frameworkAddr, constant.RoleCore)
 	if err != nil {
 		return
 	}
 
-	res = []*Module{}
+	res = []*module.Module{}
 	if err = json.Unmarshal(body, &res); err != nil {
 		return
 	}
@@ -63,13 +64,13 @@ func GetModuleCore(frameworkAddr string) (res []*Module, err error) {
 	return res, nil
 }
 
-func GetModuleAI(frameworkAddr string) (res []*Module, err error) {
+func GetModuleAI(frameworkAddr string) (res []*module.Module, err error) {
 	body, err := GetModuleByRole(frameworkAddr, constant.RoleAI)
 	if err != nil {
 		return
 	}
 
-	res = []*Module{}
+	res = []*module.Module{}
 	if err = json.Unmarshal(body, &res); err != nil {
 		return
 	}
@@ -77,13 +78,13 @@ func GetModuleAI(frameworkAddr string) (res []*Module, err error) {
 	return res, nil
 }
 
-func GetModulePlugin(frameworkAddr string) (res []*Plugin, err error) {
+func GetModulePlugin(frameworkAddr string) (res []*module.Plugin, err error) {
 	body, err := GetModuleByRole(frameworkAddr, constant.RolePlugin)
 	if err != nil {
 		return
 	}
 
-	res = []*Plugin{}
+	res = []*module.Plugin{}
 	if err = json.Unmarshal(body, &res); err != nil {
 		return
 	}

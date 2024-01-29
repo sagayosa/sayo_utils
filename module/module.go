@@ -1,13 +1,13 @@
-package sayoinnerhttp
+package module
 
-type Module struct {
-	ModuleInfo
-}
-
-type Plugin struct {
-	ModuleInfo
-	PluginConfig
-}
+const (
+	RoleVoiceRecognize = "voice_recognize"
+	RoleVoiceGenerate  = "voice_generate"
+	RoleCore           = "core"
+	RoleAI             = "ai"
+	RoleClient         = "client"
+	RolePlugin         = "plugin"
+)
 
 type ModuleConfig struct {
 	Identifier string `json:"identifier"`
@@ -27,19 +27,8 @@ type ModuleInfo struct {
 	ConfigPath string `json:"config_path"`
 }
 
-type Arg struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-}
-
-type Declare struct {
-	Root        string `json:"root"`
-	Description string `json:"description"`
-	Args        []Arg  `json:"args"`
-}
-
-type PluginConfig struct {
-	Declare []Declare `json:"declare"`
+type Module struct {
+	ModuleInfo
 }
 
 func (m *ModuleInfo) GetIdentifier() string {
