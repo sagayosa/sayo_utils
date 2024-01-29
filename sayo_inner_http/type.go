@@ -41,3 +41,15 @@ type Declare struct {
 type PluginConfig struct {
 	Declare []Declare `json:"declare"`
 }
+
+func (m *ModuleInfo) GetIdentifier() string {
+	return m.Identifier
+}
+
+func (m *ModuleInfo) GetRole() string {
+	return m.Role
+}
+
+func (m *ModuleInfo) GetIPInfo() (string, int) {
+	return m.Address, m.Port
+}
