@@ -78,6 +78,14 @@ func (s *Center) RegisterModule(module ModuleInterface) error {
 		return err
 	}
 	s.registerModuleToRole(module)
+
+	if module.GetRole() == RolePlugin {
+		p, ok := module.(*Plugin)
+		if !ok {
+			return sayoerror.Msg(sayoerror.ErrRegisterFailed, "%v", "can't cast module to Plugin")
+		}
+		s.RegisterPluginRoot(p)
+	}
 	return nil
 }
 
@@ -145,6 +153,7 @@ func newCenter() *Center {
 	return &Center{
 		RoleMp: make(map[string][]ModuleInterface),
 		IdMp:   make(map[string]ModuleInterface),
+		RootMp: make(map[string]ModuleInterface),
 	}
 }
 
