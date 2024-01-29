@@ -176,3 +176,7 @@ func FillSameField(source interface{}, dest interface{}) {
 		}
 	}
 }
+
+func SplitIPInfo(info string) (string, string, error) {
+	return net.SplitHostPort(info)
+}
