@@ -147,3 +147,7 @@ func (c *Center) ClearModule() {
 	c.roleMp = make(map[string][]ModuleInterface)
 	c.idMp = make(map[string]ModuleInterface)
 }
+
+func (c *Center) CopyOrigin(origin *Center) {
+	moduleCenterInstance = origin
+}
