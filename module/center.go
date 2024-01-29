@@ -3,6 +3,7 @@ package module
 import (
 	"sync"
 
+	"github.com/grteen/sayo_utils/constant"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 )
 
@@ -21,6 +22,17 @@ type Center struct {
 
 	rootMp   map[string]ModuleInterface
 	rootMpMu sync.Mutex
+}
+
+func (s *Center) GetPlugins() []*Plugin {
+	res := []*Plugin{}
+	modules := s.GetModulesByRole(constant.RolePlugin)
+	for _, m := range modules {
+		p := m.(*Plugin)
+		res = append(res, p)
+	}
+
+	return res
 }
 
 func (s *Center) GetModulesByRole(role string) []ModuleInterface {
