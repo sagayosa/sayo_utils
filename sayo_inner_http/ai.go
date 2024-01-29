@@ -60,8 +60,13 @@ func PostAIDecisionRootCommand(aiAddr string, root []*module.Plugin, userCommand
 		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrAIChatFailed, int(resp.Code), resp.Msg)
 	}
 
+	mp := make(map[string]string)
 	result = &AIDecisionResp{}
-	if err := utils.UnMarshalUnknownAny(resp.Data, result); err != nil {
+	if err := utils.UnMarshalUnknownAny(resp.Data, &mp); err != nil {
+		return nil, err
+	}
+
+	if err := json.Unmarshal([]byte(mp["content"]), result); err != nil {
 		return nil, err
 	}
 
