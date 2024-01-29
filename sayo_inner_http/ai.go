@@ -44,7 +44,7 @@ func PostAIDecisionRootCommand(aiAddr string, root []*module.Plugin, userCommand
 			},
 		},
 	}
-	code, body, err := utils.Post(utils.StringPlus(aiAddr, constant.AICompletionsURL), req)
+	code, body, err := utils.Post(utils.StringPlus("http://", aiAddr, constant.AICompletionsURL), req)
 	if err != nil {
 		return
 	}

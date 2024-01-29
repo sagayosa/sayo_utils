@@ -12,7 +12,7 @@ import (
 )
 
 func PullCenter(frameworkURL string) (result *module.Center, err error) {
-	code, body, err := utils.Get(utils.StringPlus(frameworkURL, constant.FrameWorkPullCenterURL), map[string]interface{}{})
+	code, body, err := utils.Get(utils.StringPlus("http://", frameworkURL, constant.FrameWorkPullCenterURL), map[string]interface{}{})
 	if err != nil {
 		return
 	}

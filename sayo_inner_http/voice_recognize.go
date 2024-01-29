@@ -15,7 +15,7 @@ type VoiceRecognizeLocalFileReq struct {
 }
 
 func PostVoiceRecognizeLocalFile(recognizeAddr, path string) (result string, err error) {
-	code, body, err := utils.Post(utils.StringPlus(recognizeAddr, constant.VoiceRecognizeURL), &VoiceRecognizeLocalFileReq{path})
+	code, body, err := utils.Post(utils.StringPlus("http://", recognizeAddr, constant.VoiceRecognizeURL), &VoiceRecognizeLocalFileReq{path})
 	if err != nil {
 		return
 	}

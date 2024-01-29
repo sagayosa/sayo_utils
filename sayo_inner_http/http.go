@@ -11,7 +11,7 @@ import (
 )
 
 func GetModuleByRole(frameworkAddr string, role string) (body []byte, err error) {
-	code, body, err := utils.Get(utils.StringPlus(frameworkAddr, constant.GetModuleByRoleURL), map[string]interface{}{constant.GetModuleByRoleQueryRole: role})
+	code, body, err := utils.Get(utils.StringPlus("http://", frameworkAddr, constant.GetModuleByRoleURL), map[string]interface{}{constant.GetModuleByRoleQueryRole: role})
 	if err != nil {
 		return
 	}
