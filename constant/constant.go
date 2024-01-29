@@ -9,6 +9,10 @@ const (
 	RolePlugin         = "plugin"
 )
 
+var (
+	RoleCollection = []string{RoleAI, RoleClient, RoleCore, RolePlugin, RoleVoiceGenerate, RoleVoiceRecognize}
+)
+
 const (
 	GetModuleByRoleURL       = "/module/role"
 	GetModuleByRoleQueryRole = "role"
