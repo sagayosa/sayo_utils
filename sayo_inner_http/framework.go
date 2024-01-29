@@ -28,9 +28,25 @@ func PullCenter(frameworkURL string) (result *module.Center, err error) {
 		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrPullCenterFailed, int(resp.Code), resp.Msg)
 	}
 
-	result = &module.Center{}
-	if err := utils.UnMarshalUnknownAny(resp.Data, result); err != nil {
+	type temp struct {
+		RoleMp map[string][]*module.Plugin `json:"role_map"`
+
+		IdMp map[string]*module.Plugin `json:"id_map"`
+
+		RootMp map[string]*module.Plugin `json:"root_map"`
+	}
+	t := &temp{}
+	if err := utils.UnMarshalUnknownAny(resp.Data, t); err != nil {
 		return nil, err
+	}
+
+	result = &module.Center{}
+	for _, s := range t.RoleMp {
+		for _, v := range s {
+			if err := result.RegisterModule(v); err != nil {
+				return nil, err
+			}
+		}
 	}
 
 	return result, nil
