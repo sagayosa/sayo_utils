@@ -32,6 +32,7 @@ var (
 	ErrNoVoiceRecognizeModule = fmt.Errorf("no voice recognize module")
 	ErrNoVoiceGenerateModule  = fmt.Errorf("no voice generate module")
 	ErrNoAIModule             = fmt.Errorf("no ai module")
+	ErrVoiceRecognizeFailed   = fmt.Errorf("voice recognize module failed")
 )
 
 const (

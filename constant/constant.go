@@ -16,4 +16,7 @@ var (
 const (
 	GetModuleByRoleURL       = "/module/role"
 	GetModuleByRoleQueryRole = "role"
+
+	VoiceRecognizeURL = "/voice"
+	AICompletionsURL  = "/chat/completions"
 )
