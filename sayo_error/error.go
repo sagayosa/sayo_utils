@@ -27,6 +27,7 @@ var (
 	ErrUnknownType         = fmt.Errorf("unknown register type")
 	ErrInvalidRole         = fmt.Errorf("invalid register role")
 	ErrAIChatFailed        = fmt.Errorf("ai chat failed")
+	ErrCoreGetRoleFailed   = fmt.Errorf("core get role failed")
 )
 
 const (
@@ -44,6 +45,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrUnknownType:         1003,
 	ErrInvalidRole:         1004,
 	ErrAIChatFailed:        1005,
+	ErrCoreGetRoleFailed:   1006,
 }
 
 func Msg(err error, format string, a ...interface{}) error {

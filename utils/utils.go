@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 )
@@ -73,6 +75,31 @@ func Post(URL string, data interface{}) (code int, body []byte, err error) {
 		return
 	}
 
+	return resp.StatusCode, body, nil
+}
+
+func Get(URL string, data map[string]interface{}) (code int, body []byte, err error) {
+	params := url.Values{}
+	for k, v := range data {
+		params.Add(k, fmt.Sprintf("%v", v))
+	}
+
+	reqURL, err := url.Parse(URL)
+	if err != nil {
+		return
+	}
+	reqURL.RawQuery = params.Encode()
+
+	resp, err := http.Get(reqURL.String())
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	body, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
 	return resp.StatusCode, body, nil
 }
 
