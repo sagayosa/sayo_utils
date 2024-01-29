@@ -21,13 +21,14 @@ var (
 
 // web info error
 var (
-	ErrInternalServer      = fmt.Errorf("internal server error")
-	ErrDuplicateIdentifier = fmt.Errorf("duplicate identifier")
-	ErrRegisterFailed      = fmt.Errorf("modules register failed")
-	ErrUnknownType         = fmt.Errorf("unknown register type")
-	ErrInvalidRole         = fmt.Errorf("invalid register role")
-	ErrAIChatFailed        = fmt.Errorf("ai chat failed")
-	ErrCoreGetRoleFailed   = fmt.Errorf("core get role failed")
+	ErrInternalServer       = fmt.Errorf("internal server error")
+	ErrDuplicateIdentifier  = fmt.Errorf("duplicate identifier")
+	ErrRegisterFailed       = fmt.Errorf("modules register failed")
+	ErrUnknownType          = fmt.Errorf("unknown register type")
+	ErrInvalidRole          = fmt.Errorf("invalid register role")
+	ErrAIChatFailed         = fmt.Errorf("ai chat failed")
+	ErrCoreGetRoleFailed    = fmt.Errorf("core get role failed")
+	ErrDuplicateRootCommand = fmt.Errorf("duplicate root command")
 )
 
 const (
@@ -39,13 +40,14 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrRegisterJobFailed: 500,
 	ErrRunModulesFailed:  501,
 
-	ErrInternalServer:      1000,
-	ErrDuplicateIdentifier: 1001,
-	ErrRegisterFailed:      1002,
-	ErrUnknownType:         1003,
-	ErrInvalidRole:         1004,
-	ErrAIChatFailed:        1005,
-	ErrCoreGetRoleFailed:   1006,
+	ErrInternalServer:       1000,
+	ErrDuplicateIdentifier:  1001,
+	ErrRegisterFailed:       1002,
+	ErrUnknownType:          1003,
+	ErrInvalidRole:          1004,
+	ErrAIChatFailed:         1005,
+	ErrCoreGetRoleFailed:    1006,
+	ErrDuplicateRootCommand: 1007,
 }
 
 func Msg(err error, format string, a ...interface{}) error {
