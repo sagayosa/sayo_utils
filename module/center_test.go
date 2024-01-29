@@ -63,7 +63,7 @@ func TestRegisterModule(t *testing.T) {
 			}
 		}
 
-		for key, val := range c.roleMp {
+		for key, val := range c.RoleMp {
 			ans := d.output[key]
 			if !utils.CompareSlice(val, ans) {
 				t.Error(utils.ComparisonFailure(ans, val))
@@ -121,7 +121,7 @@ func TestUnRegisterModule(t *testing.T) {
 			c.UnRegisterModule(in)
 		}
 
-		for key, val := range c.roleMp {
+		for key, val := range c.RoleMp {
 			ans := d.output[key]
 			if !utils.CompareSlice(val, ans) {
 				t.Error(utils.ComparisonFailure(ans, val))

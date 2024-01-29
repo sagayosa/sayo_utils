@@ -14,13 +14,13 @@ type ModuleInterface interface {
 }
 
 type Center struct {
-	roleMp   map[string][]ModuleInterface
+	RoleMp   map[string][]ModuleInterface `json:"role_map"`
 	roleMpMu sync.Mutex
 
-	idMp   map[string]ModuleInterface
+	IdMp   map[string]ModuleInterface `json:"id_map"`
 	idMpMu sync.Mutex
 
-	rootMp   map[string]ModuleInterface
+	RootMp   map[string]ModuleInterface `json:"root_map"`
 	rootMpMu sync.Mutex
 }
 
@@ -39,7 +39,7 @@ func (s *Center) GetModulesByRole(role string) []ModuleInterface {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
-	c, ok := s.roleMp[role]
+	c, ok := s.RoleMp[role]
 	if !ok {
 		return nil
 	}
@@ -50,7 +50,7 @@ func (s *Center) GetModuleByIdentifier(id string) []ModuleInterface {
 	s.idMpMu.Lock()
 	defer s.idMpMu.Unlock()
 
-	c, ok := s.idMp[id]
+	c, ok := s.IdMp[id]
 	if !ok {
 		return nil
 	}
@@ -62,12 +62,12 @@ func (c *Center) RegisterPluginRoot(plugin *Plugin) error {
 	defer c.rootMpMu.Unlock()
 
 	for _, r := range plugin.Declare {
-		_, ok := c.rootMp[r.Root]
+		_, ok := c.RootMp[r.Root]
 		if ok {
 			return sayoerror.ErrDuplicateRootCommand
 		}
 
-		c.rootMp[r.Root] = plugin
+		c.RootMp[r.Root] = plugin
 	}
 
 	return nil
@@ -85,26 +85,26 @@ func (s *Center) registerModuleToRole(module ModuleInterface) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
-	c, ok := s.roleMp[module.GetRole()]
+	c, ok := s.RoleMp[module.GetRole()]
 	if !ok {
-		s.roleMp[module.GetRole()] = []ModuleInterface{module}
+		s.RoleMp[module.GetRole()] = []ModuleInterface{module}
 		return
 	}
 
 	c = append(c, module)
-	s.roleMp[module.GetRole()] = c
+	s.RoleMp[module.GetRole()] = c
 }
 
 func (s *Center) registerModuleToIdentifier(module ModuleInterface) error {
 	s.idMpMu.Lock()
 	defer s.idMpMu.Unlock()
 
-	_, ok := s.idMp[module.GetIdentifier()]
+	_, ok := s.IdMp[module.GetIdentifier()]
 	if ok {
 		return sayoerror.ErrDuplicateIdentifier
 	}
 
-	s.idMp[module.GetIdentifier()] = module
+	s.IdMp[module.GetIdentifier()] = module
 	return nil
 }
 
@@ -117,23 +117,23 @@ func (s *Center) unRegisterModuleRole(module ModuleInterface) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
-	for key, slice := range s.roleMp {
+	for key, slice := range s.RoleMp {
 		for idx, m := range slice {
 			if m.GetIdentifier() == module.GetIdentifier() {
 				if len(slice) == 1 {
-					delete(s.roleMp, key)
+					delete(s.RoleMp, key)
 					return
 				}
 
 				newSlice := append(slice[:idx], slice[idx+1:]...)
-				s.roleMp[key] = newSlice
+				s.RoleMp[key] = newSlice
 			}
 		}
 	}
 }
 
 func (s *Center) unRegisterModuleIdentifier(module ModuleInterface) {
-	delete(s.idMp, module.GetIdentifier())
+	delete(s.IdMp, module.GetIdentifier())
 }
 
 var (
@@ -143,8 +143,8 @@ var (
 
 func newCenter() *Center {
 	return &Center{
-		roleMp: make(map[string][]ModuleInterface),
-		idMp:   make(map[string]ModuleInterface),
+		RoleMp: make(map[string][]ModuleInterface),
+		IdMp:   make(map[string]ModuleInterface),
 	}
 }
 
@@ -156,8 +156,8 @@ func GetInstance() *Center {
 }
 
 func (c *Center) ClearModule() {
-	c.roleMp = make(map[string][]ModuleInterface)
-	c.idMp = make(map[string]ModuleInterface)
+	c.RoleMp = make(map[string][]ModuleInterface)
+	c.IdMp = make(map[string]ModuleInterface)
 }
 
 func (c *Center) CopyOrigin(origin *Center) {
