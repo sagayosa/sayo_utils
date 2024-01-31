@@ -12,7 +12,7 @@ import (
 
 func CallCoreToPullCenter(coreAddr string) error {
 	url := utils.StringPlus("http://", coreAddr, constant.CorePullCenterURL)
-	code, body, err := utils.Post(url, nil)
+	code, body, err := utils.Post(url, struct{}{})
 	if err != nil {
 		return err
 	}
