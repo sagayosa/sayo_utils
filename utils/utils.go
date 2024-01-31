@@ -156,7 +156,8 @@ func GetAvailablePort() (int, error) {
 	return 0, sayoerror.ErrGetAvailablePortTimesLimited
 }
 
-func FillSameField(source interface{}, dest interface{}) {
+// Copy the field with the same name and same type in source and dest from source to dest and return dest itself
+func FillSameField(source interface{}, dest interface{}) interface{} {
 	valSource := reflect.ValueOf(source)
 	valDest := reflect.ValueOf(dest)
 
@@ -175,6 +176,8 @@ func FillSameField(source interface{}, dest interface{}) {
 			fieldDest.Set(fieldSource)
 		}
 	}
+
+	return dest
 }
 
 func SplitIPInfo(info string) (string, string, error) {
