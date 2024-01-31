@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 )
 
 var (
@@ -20,6 +21,7 @@ func init() {
 type Log struct {
 	Message     string `json:"msg"`
 	ErrorString string `json:"err"`
+	Stack       string `json:"stack"`
 }
 
 func (l *Log) Err(err error) *Log {
@@ -42,10 +44,16 @@ func (l *Log) toString() string {
 }
 
 func (l *Log) Info() {
+	pc, file, line, _ := runtime.Caller(1)
+	callerName := runtime.FuncForPC(pc).Name()
+	l.Stack = fmt.Sprintf("%v:%v:%v", file, line, callerName)
 	infoLog.Println(l.toString())
 }
 
 func (l *Log) Error() {
+	pc, file, line, _ := runtime.Caller(2)
+	callerName := runtime.FuncForPC(pc).Name()
+	l.Stack = fmt.Sprintf("%v:%v:%v", file, line, callerName)
 	errLog.Println(l.toString())
 }
 
