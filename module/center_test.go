@@ -10,7 +10,7 @@ var (
 	r1 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "1", Role: RoleVoiceRecognize}}} // Address: "127.0.0.1", Port: "9877",
 	r2 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-2", Role: RoleVoiceGenerate}}} // Address: "192.168.131.2", Port: "8080"
 	r3 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "3", Role: RoleAI}}}             // Address: "0.0.0.0", Port: "6379"
-	r4 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-4", Role: RoleClient}}}        // Address: "7.7.7.7", Port: "443"
+	r4 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-4", Role: RoleDesktop}}}       // Address: "7.7.7.7", Port: "443"
 	r5 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "5", Role: RoleCore}}}           // Address: "256.256.256.256", Port: "80"
 	r6 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-6", Role: RoleAI}}}            // Address: "127.0.0.1", Port: "2024"
 	r7 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "7", Role: RoleVoiceGenerate}}}  // Address: "6.6.6.6", Port: "4048"
@@ -30,7 +30,7 @@ func TestRegisterModule(t *testing.T) {
 				RoleVoiceRecognize: {&r1},
 				RoleVoiceGenerate:  {&r2},
 				RoleAI:             {&r3},
-				RoleClient:         {&r4},
+				RoleDesktop:        {&r4},
 				RoleCore:           {&r5},
 			},
 		},
@@ -40,7 +40,7 @@ func TestRegisterModule(t *testing.T) {
 				RoleVoiceRecognize: {&r1},
 				RoleVoiceGenerate:  {&r2, &r7, &r8},
 				RoleAI:             {&r3, &r6},
-				RoleClient:         {&r4},
+				RoleDesktop:        {&r4},
 				RoleCore:           {&r5},
 			},
 		},
@@ -91,8 +91,8 @@ func TestUnRegisterModule(t *testing.T) {
 				unRegister: []*Module{&r1, &r2, &r3},
 			},
 			output: map[string][]ModuleInterface{
-				RoleClient: {&r4},
-				RoleCore:   {&r5},
+				RoleDesktop: {&r4},
+				RoleCore:    {&r5},
 			},
 		},
 		{
@@ -104,7 +104,7 @@ func TestUnRegisterModule(t *testing.T) {
 				unRegister: []*Module{&r1, &r2, &r3, &r7},
 			},
 			output: map[string][]ModuleInterface{
-				RoleClient:        {&r4},
+				RoleDesktop:       {&r4},
 				RoleCore:          {&r5},
 				RoleVoiceGenerate: {&r8},
 			},

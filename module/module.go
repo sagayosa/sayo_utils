@@ -11,7 +11,7 @@ const (
 	RoleVoiceGenerate  = "voice_generate"
 	RoleCore           = "core"
 	RoleAI             = "ai"
-	RoleClient         = "client"
+	RoleDesktop        = "desktop"
 	RolePlugin         = "plugin"
 )
 
