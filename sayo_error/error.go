@@ -35,6 +35,7 @@ var (
 	ErrNoAIModule             = fmt.Errorf("no ai module")
 	ErrVoiceRecognizeFailed   = fmt.Errorf("voice recognize module failed")
 	ErrPullCenterFailed       = fmt.Errorf("pull center failed")
+	ErrPostPluginNoUri        = fmt.Errorf("no uri of this root command")
 )
 
 const (
@@ -59,6 +60,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNoVoiceGenerateModule:  1009,
 	ErrNoAIModule:             1010,
 	ErrPullCenterFailed:       1011,
+	ErrPostPluginNoUri:        1012,
 }
 
 func Msg(err error, format string, a ...interface{}) error {
