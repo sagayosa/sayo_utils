@@ -22,4 +22,5 @@ const (
 	VoiceRecognizeURL      = "/voice"
 	AICompletionsURL       = "/chat/completions"
 	FrameWorkPullCenterURL = "/module/pull"
+	CorePullCenterURL      = "/pull"
 )

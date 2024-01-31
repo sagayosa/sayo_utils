@@ -22,21 +22,22 @@ var (
 
 // web info error
 var (
-	ErrInternalServer         = fmt.Errorf("internal server error")
-	ErrDuplicateIdentifier    = fmt.Errorf("duplicate identifier")
-	ErrRegisterFailed         = fmt.Errorf("modules register failed")
-	ErrUnknownType            = fmt.Errorf("unknown register type")
-	ErrInvalidRole            = fmt.Errorf("invalid register role")
-	ErrAIChatFailed           = fmt.Errorf("ai chat failed")
-	ErrCoreGetRoleFailed      = fmt.Errorf("core get role failed")
-	ErrDuplicateRootCommand   = fmt.Errorf("duplicate root command")
-	ErrNoVoiceRecognizeModule = fmt.Errorf("no voice recognize module")
-	ErrNoVoiceGenerateModule  = fmt.Errorf("no voice generate module")
-	ErrNoAIModule             = fmt.Errorf("no ai module")
-	ErrVoiceRecognizeFailed   = fmt.Errorf("voice recognize module failed")
-	ErrPullCenterFailed       = fmt.Errorf("pull center failed")
-	ErrPostPluginNoUri        = fmt.Errorf("no uri of this root command")
-	ErrNoPluginOfRoot         = fmt.Errorf("no plugin of this root command")
+	ErrInternalServer             = fmt.Errorf("internal server error")
+	ErrDuplicateIdentifier        = fmt.Errorf("duplicate identifier")
+	ErrRegisterFailed             = fmt.Errorf("modules register failed")
+	ErrUnknownType                = fmt.Errorf("unknown register type")
+	ErrInvalidRole                = fmt.Errorf("invalid register role")
+	ErrAIChatFailed               = fmt.Errorf("ai chat failed")
+	ErrCoreGetRoleFailed          = fmt.Errorf("core get role failed")
+	ErrDuplicateRootCommand       = fmt.Errorf("duplicate root command")
+	ErrNoVoiceRecognizeModule     = fmt.Errorf("no voice recognize module")
+	ErrNoVoiceGenerateModule      = fmt.Errorf("no voice generate module")
+	ErrNoAIModule                 = fmt.Errorf("no ai module")
+	ErrVoiceRecognizeFailed       = fmt.Errorf("voice recognize module failed")
+	ErrPullCenterFailed           = fmt.Errorf("pull center failed")
+	ErrPostPluginNoUri            = fmt.Errorf("no uri of this root command")
+	ErrNoPluginOfRoot             = fmt.Errorf("no plugin of this root command")
+	ErrCallCoreToPullCenterFailed = fmt.Errorf("call core to pull center failed")
 )
 
 const (
@@ -49,20 +50,21 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrRunModulesFailed:             501,
 	ErrGetAvailablePortTimesLimited: 502,
 
-	ErrInternalServer:         1000,
-	ErrDuplicateIdentifier:    1001,
-	ErrRegisterFailed:         1002,
-	ErrUnknownType:            1003,
-	ErrInvalidRole:            1004,
-	ErrAIChatFailed:           1005,
-	ErrCoreGetRoleFailed:      1006,
-	ErrDuplicateRootCommand:   1007,
-	ErrNoVoiceRecognizeModule: 1008,
-	ErrNoVoiceGenerateModule:  1009,
-	ErrNoAIModule:             1010,
-	ErrPullCenterFailed:       1011,
-	ErrPostPluginNoUri:        1012,
-	ErrNoPluginOfRoot:         1013,
+	ErrInternalServer:             1000,
+	ErrDuplicateIdentifier:        1001,
+	ErrRegisterFailed:             1002,
+	ErrUnknownType:                1003,
+	ErrInvalidRole:                1004,
+	ErrAIChatFailed:               1005,
+	ErrCoreGetRoleFailed:          1006,
+	ErrDuplicateRootCommand:       1007,
+	ErrNoVoiceRecognizeModule:     1008,
+	ErrNoVoiceGenerateModule:      1009,
+	ErrNoAIModule:                 1010,
+	ErrPullCenterFailed:           1011,
+	ErrPostPluginNoUri:            1012,
+	ErrNoPluginOfRoot:             1013,
+	ErrCallCoreToPullCenterFailed: 1014,
 }
 
 func Msg(err error, format string, a ...interface{}) error {
