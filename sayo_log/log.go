@@ -14,8 +14,8 @@ var (
 )
 
 func init() {
-	infoLog = log.New(os.Stdout, "[Info] ", log.LstdFlags|log.Llongfile)
-	errLog = log.New(os.Stderr, "[Error] ", log.LstdFlags|log.Llongfile)
+	infoLog = log.New(os.Stdout, "[Info] ", log.LstdFlags)
+	errLog = log.New(os.Stderr, "[Error] ", log.LstdFlags)
 }
 
 type Log struct {
@@ -43,15 +43,15 @@ func (l *Log) toString() string {
 	return string(bts)
 }
 
-func (l *Log) Info() {
-	pc, file, line, _ := runtime.Caller(1)
+func (l *Log) Info(stackLevel int) {
+	pc, file, line, _ := runtime.Caller(stackLevel)
 	callerName := runtime.FuncForPC(pc).Name()
 	l.Stack = fmt.Sprintf("%v:%v:%v", file, line, callerName)
 	infoLog.Println(l.toString())
 }
 
-func (l *Log) Error() {
-	pc, file, line, _ := runtime.Caller(2)
+func (l *Log) Error(stackLevel int) {
+	pc, file, line, _ := runtime.Caller(stackLevel)
 	callerName := runtime.FuncForPC(pc).Name()
 	l.Stack = fmt.Sprintf("%v:%v:%v", file, line, callerName)
 	errLog.Println(l.toString())
