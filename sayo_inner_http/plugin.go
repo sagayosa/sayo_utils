@@ -19,7 +19,7 @@ func PostPlugin(plugin *module.Plugin, decision *AIDecisionResp) error {
 		return sayoerror.Msg(sayoerror.ErrPostPluginNoUri, "root = %v", decision.Root)
 	}
 
-	url := utils.StringPlus(plugin.GetIPInfo(), uri)
+	url := utils.StringPlus("http://", plugin.GetIPInfo(), uri)
 	code, _, err := utils.Post(url, decision.Argvs)
 	if err != nil {
 		return err
