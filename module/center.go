@@ -196,5 +196,15 @@ func (c *Center) ClearModule() {
 }
 
 func (c *Center) CopyOrigin(origin *Center) {
-	moduleCenterInstance = origin
+	c.idMpMu.Lock()
+	defer c.idMpMu.Unlock()
+	c.IdMp = origin.IdMp
+
+	c.roleMpMu.Lock()
+	defer c.roleMpMu.Unlock()
+	c.RoleMp = origin.RoleMp
+
+	c.rootMpMu.Lock()
+	defer c.rootMpMu.Unlock()
+	c.RootMp = origin.RootMp
 }
