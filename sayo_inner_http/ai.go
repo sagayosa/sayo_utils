@@ -35,7 +35,7 @@ func GenerateAIDecisionRootCommandText(root []*module.Plugin, userCommand string
 		return "", err
 	}
 	format := "Hello, I will provide a list of commands and the user's commands. Please respond to the user's commands based on what you think they want to call and the parameters you think they want to enter, in JSON format {root: the command you think the user wants to call, argvs: the parameters you think the user wants to fill in}. Note that the user's commands are the result of speech-to-text, so you may need to decide based on pronunciation. Thank you. Here is the list of commands:\n%v\nuser's command is: %v"
-	return fmt.Sprintf(format, plugins, userCommand), nil
+	return fmt.Sprintf(format, string(plugins), userCommand), nil
 }
 
 func PostAIDecisionRootCommand(aiAddr string, root []*module.Plugin, userCommand string) (result *AIDecisionResp, err error) {
