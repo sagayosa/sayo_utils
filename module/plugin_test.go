@@ -172,5 +172,20 @@ func TestPlugin(t *testing.T) {
 				t.Error(utils.ConvetFailure(p))
 			}
 		}
+
+		for _, p := range d.exclude {
+			r := p.(*Plugin)
+			ps := c.GetPluginByRoot(r.Declare[0].Root)
+			if len(ps) != 0 {
+				t.Error(utils.ComparisonFailure(0, len(ps)))
+			}
+		}
+		for _, p := range d.output {
+			r := p.(*Plugin)
+			ps := c.GetPluginByRoot(r.Declare[0].Root)
+			if len(ps) != 1 {
+				t.Error(utils.ComparisonFailure(1, len(ps)))
+			}
+		}
 	}
 }

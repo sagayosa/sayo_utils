@@ -24,6 +24,18 @@ type Center struct {
 	rootMpMu sync.Mutex
 }
 
+func (c *Center) GetPluginByRoot(root string) []*Plugin {
+	c.rootMpMu.Lock()
+	defer c.rootMpMu.Unlock()
+
+	p, ok := c.RootMp[root]
+	if !ok {
+		return nil
+	}
+
+	return []*Plugin{p.(*Plugin)}
+}
+
 func (s *Center) GetPlugins() []*Plugin {
 	res := []*Plugin{}
 	modules := s.GetModulesByRole(constant.RolePlugin)
@@ -119,6 +131,10 @@ func (s *Center) registerModuleToIdentifier(module ModuleInterface) error {
 func (s *Center) UnRegisterModule(module ModuleInterface) {
 	s.unRegisterModuleRole(module)
 	s.unRegisterModuleIdentifier(module)
+
+	if module.GetRole() == RolePlugin {
+		s.unRegisterPluginRoot(module.(*Plugin))
+	}
 }
 
 func (s *Center) unRegisterModuleRole(module ModuleInterface) {
@@ -141,7 +157,17 @@ func (s *Center) unRegisterModuleRole(module ModuleInterface) {
 }
 
 func (s *Center) unRegisterModuleIdentifier(module ModuleInterface) {
+	s.idMpMu.Lock()
+	defer s.idMpMu.Unlock()
 	delete(s.IdMp, module.GetIdentifier())
+}
+
+func (s *Center) unRegisterPluginRoot(plugin *Plugin) {
+	s.rootMpMu.Lock()
+	defer s.rootMpMu.Unlock()
+	for _, r := range plugin.Declare {
+		delete(s.RootMp, r.Root)
+	}
 }
 
 var (

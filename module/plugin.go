@@ -8,6 +8,7 @@ type Arg struct {
 type Declare struct {
 	Root        string `json:"root"`
 	Description string `json:"description"`
+	URL         string `json:"url"`
 	Args        []Arg  `json:"args"`
 }
 
