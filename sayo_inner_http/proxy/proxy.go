@@ -37,6 +37,34 @@ func PostAIDecisionRootCommand(frameworkAddr string, userCommand string) (result
 	return result, nil
 }
 
+func PostAICompletion(frameworkAddr string, content string) (result interface{}, err error) {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyAICompletionsURL)
+	code, body, err := utils.Post(url, map[string]interface{}{constant.ProxyAICompletionJSONContent: content})
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		return nil, sayoerror.ErrorInStatusCode(sayoerror.ErrAIChatFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrAIChatFailed, int(resp.Code), resp.Msg)
+	}
+
+	temp := &struct {
+		Content string `json:"content"`
+	}{}
+	if err = utils.UnMarshalUnknownAny(resp.Data, temp); err != nil {
+		return
+	}
+
+	return temp.Content, nil
+}
+
 func PostVoiceRecognizeLocalFile(frameworkAddr string, path string) (result string, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyVoiceRecognizeVoiceURL)
 	code, body, err := utils.Post(url, map[string]interface{}{constant.ProxyVoiceRecognizeVoiceJSONPath: path})
