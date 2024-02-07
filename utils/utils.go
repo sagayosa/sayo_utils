@@ -77,7 +77,7 @@ func JSONPersistence(filePath string, source interface{}) error {
 		return err
 	}
 
-	return os.WriteFile(filePath, bts, 0777)
+	return os.WriteFile(filePath, prettyJSON.Bytes(), 0777)
 }
 
 func Post(URL string, data interface{}) (code int, body []byte, err error) {
