@@ -28,7 +28,14 @@ func GetModuleByRole(frameworkAddr string, role string) (result interface{}, err
 		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrCoreGetRoleFailed, int(resp.Code), resp.Msg)
 	}
 
-	return resp.Data, nil
+	t := &struct {
+		Modules []module.ModuleInterface `json:"modules"`
+	}{}
+	if err := utils.UnMarshalUnknownAny(resp.Data, t); err != nil {
+		return nil, err
+	}
+
+	return t.Modules, nil
 }
 
 func GetModuleVoiceRecognize(frameworkAddr string) (res []*module.Module, err error) {
