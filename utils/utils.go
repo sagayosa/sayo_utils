@@ -72,7 +72,7 @@ func JSONPersistence(filePath string, source interface{}) error {
 	}
 
 	var prettyJSON bytes.Buffer
-	err = json.Indent(&prettyJSON, bts, "", "  ")
+	err = json.Indent(&prettyJSON, bts, "", "	")
 	if err != nil {
 		return err
 	}
