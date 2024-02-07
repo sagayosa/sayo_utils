@@ -65,6 +65,26 @@ func JSON(filePath string, dst interface{}) error {
 	return nil
 }
 
+func JSONPersistence(filePath string, source interface{}) error {
+	bts, err := json.Marshal(source)
+	if err != nil {
+		return err
+	}
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	_, err = file.Write(bts)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func Post(URL string, data interface{}) (code int, body []byte, err error) {
 	bts, err := json.Marshal(data)
 	if err != nil {
