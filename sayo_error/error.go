@@ -42,6 +42,7 @@ var (
 	ErrNoCoreModule               = fmt.Errorf("no core module")
 	ErrOpenNoIdentifier           = fmt.Errorf("open plugin dose not have this identifier")
 	ErrOpenIdentifierIsNotAllowed = fmt.Errorf("this identifier in open plugin is disallowed")
+	ErrOpenIdentifierDuplicated   = fmt.Errorf("this identifier in open plugin is duplicated")
 )
 
 const (
@@ -73,6 +74,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNoCoreModule:               1016,
 	ErrOpenNoIdentifier:           1017,
 	ErrOpenIdentifierIsNotAllowed: 1018,
+	ErrOpenIdentifierDuplicated:   1019,
 }
 
 func Msg(err error, format string, a ...interface{}) error {
