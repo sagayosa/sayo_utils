@@ -39,6 +39,7 @@ var (
 	ErrNoPluginOfRoot             = fmt.Errorf("no plugin of this root command")
 	ErrCallCoreToPullCenterFailed = fmt.Errorf("call core to pull center failed")
 	ErrCallCoreVoiceCommandFailed = fmt.Errorf("call core voice command failed")
+	ErrNoCoreModule               = fmt.Errorf("no core module")
 )
 
 const (
@@ -67,6 +68,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNoPluginOfRoot:             1013,
 	ErrCallCoreToPullCenterFailed: 1014,
 	ErrCallCoreVoiceCommandFailed: 1015,
+	ErrNoCoreModule:               1016,
 }
 
 func Msg(err error, format string, a ...interface{}) error {
