@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"runtime/debug"
 )
 
 var (
@@ -48,7 +47,7 @@ func (l *Log) Info() {
 }
 
 func (l *Log) Error() {
-	l.Stack = string(debug.Stack())
+	// l.Stack = string(debug.Stack())
 	errLog.Println(l.toString())
 }
 
