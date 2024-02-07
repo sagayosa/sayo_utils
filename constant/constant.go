@@ -26,4 +26,7 @@ const (
 
 	CoreVoiceCommand         = "/command/voice"
 	CoreVoiceCommandJSONPath = "path"
+
+	ProxyAICompletionsURL             = "/proxy/ai/chat/completions"
+	ProxyAICompletionsJSONUserCommand = "usercommand"
 )
