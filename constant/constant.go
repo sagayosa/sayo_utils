@@ -29,4 +29,6 @@ const (
 
 	ProxyAICompletionsURL             = "/proxy/ai/chat/completions"
 	ProxyAICompletionsJSONUserCommand = "usercommand"
+	ProxyVoiceRecognizeVoiceURL       = "/proxy/voice_recognize/voice"
+	ProxyVoiceRecognizeVoiceJSONPath  = "path"
 )
