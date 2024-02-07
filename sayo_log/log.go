@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"runtime"
+	"runtime/debug"
 )
 
 var (
@@ -43,17 +43,12 @@ func (l *Log) toString() string {
 	return string(bts)
 }
 
-func (l *Log) Info(stackLevel int) {
-	pc, file, line, _ := runtime.Caller(stackLevel)
-	callerName := runtime.FuncForPC(pc).Name()
-	l.Stack = fmt.Sprintf("%v:%v:%v", file, line, callerName)
+func (l *Log) Info() {
 	infoLog.Println(l.toString())
 }
 
-func (l *Log) Error(stackLevel int) {
-	pc, file, line, _ := runtime.Caller(stackLevel)
-	callerName := runtime.FuncForPC(pc).Name()
-	l.Stack = fmt.Sprintf("%v:%v:%v", file, line, callerName)
+func (l *Log) Error() {
+	l.Stack = string(debug.Stack())
 	errLog.Println(l.toString())
 }
 

@@ -12,7 +12,7 @@ func IrisCtxJSONWrap(f func(ctx iris.Context) (*baseresp.BaseResp, error)) Handl
 	return func(ctx iris.Context) {
 		resp, err := f(ctx)
 		if err != nil {
-			sayolog.Err(err).Error(2)
+			sayolog.Err(err).Error()
 		}
 		ctx.JSON(resp)
 	}
