@@ -23,4 +23,7 @@ const (
 	AICompletionsURL       = "/chat/completions"
 	FrameWorkPullCenterURL = "/module/pull"
 	CorePullCenterURL      = "/pull"
+
+	CoreVoiceCommand         = "/command/voice"
+	CoreVoiceCommandJSONPath = "path"
 )
