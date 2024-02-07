@@ -79,3 +79,32 @@ func PostAIDecisionRootCommand(aiAddr string, root []*module.Plugin, userCommand
 
 	return result, nil
 }
+
+func PostAICompletion(aiAddr string, content string) (result interface{}, err error) {
+	req := &AICompletionsReq{
+		Messages: []Messages{
+			{
+				Role:    "user",
+				Content: content,
+			},
+		},
+	}
+
+	code, body, err := utils.Post(utils.StringPlus("http://", aiAddr, constant.AICompletionsURL), req)
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		return nil, sayoerror.ErrorInStatusCode(sayoerror.ErrAIChatFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrAIChatFailed, int(resp.Code), resp.Msg)
+	}
+
+	return resp.Data, nil
+}
