@@ -71,18 +71,13 @@ func JSONPersistence(filePath string, source interface{}) error {
 		return err
 	}
 
-	file, err := os.Open(filePath)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	_, err = file.Write(bts)
+	var prettyJSON bytes.Buffer
+	err = json.Indent(&prettyJSON, bts, "", "  ")
 	if err != nil {
 		return err
 	}
 
-	return nil
+	return os.WriteFile(filePath, bts, 0777)
 }
 
 func Post(URL string, data interface{}) (code int, body []byte, err error) {
