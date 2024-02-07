@@ -31,4 +31,5 @@ const (
 	ProxyAICompletionsJSONUserCommand = "usercommand"
 	ProxyVoiceRecognizeVoiceURL       = "/proxy/voice_recognize/voice"
 	ProxyVoiceRecognizeVoiceJSONPath  = "path"
+	ProxyPluginURL                    = "/proxy/plugin"
 )

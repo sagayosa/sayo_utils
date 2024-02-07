@@ -57,3 +57,24 @@ func PostVoiceRecognizeLocalFile(frameworkAddr string, path string) (result stri
 
 	return resp.Data.(string), nil
 }
+
+func PostPlugin(frameworkAddr string, req *sayoinnerhttp.AIDecisionResp) error {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyPluginURL)
+	code, body, err := utils.Post(url, req)
+	if err != nil {
+		return err
+	}
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrCallCoreVoiceCommandFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrCallCoreVoiceCommandFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
+}
