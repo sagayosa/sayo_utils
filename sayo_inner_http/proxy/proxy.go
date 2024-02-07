@@ -37,14 +37,14 @@ func PostAIDecisionRootCommand(frameworkAddr string, userCommand string) (result
 	return result, nil
 }
 
-func PostAICompletion(frameworkAddr string, content string) (result interface{}, err error) {
+func PostAICompletion(frameworkAddr string, content string) (result string, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyAICompletionsURL)
 	code, body, err := utils.Post(url, map[string]interface{}{constant.ProxyAICompletionJSONContent: content})
 	if err != nil {
 		return
 	}
 	if code != http.StatusOK {
-		return nil, sayoerror.ErrorInStatusCode(sayoerror.ErrAIChatFailed, code)
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrAIChatFailed, code)
 	}
 
 	resp := &baseresp.BaseResp{}
@@ -52,7 +52,7 @@ func PostAICompletion(frameworkAddr string, content string) (result interface{},
 		return
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return nil, sayoerror.ErrorInMsgCode(sayoerror.ErrAIChatFailed, int(resp.Code), resp.Msg)
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrAIChatFailed, int(resp.Code), resp.Msg)
 	}
 
 	temp := &struct {

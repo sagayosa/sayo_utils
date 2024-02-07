@@ -29,7 +29,7 @@ func GetModuleByRole(frameworkAddr string, role string) (result interface{}, err
 	}
 
 	t := &struct {
-		Modules []module.ModuleInterface `json:"modules"`
+		Modules []interface{} `json:"modules"`
 	}{}
 	if err := utils.UnMarshalUnknownAny(resp.Data, t); err != nil {
 		return nil, err
