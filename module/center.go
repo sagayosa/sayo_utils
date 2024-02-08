@@ -208,3 +208,14 @@ func (c *Center) CopyOrigin(origin *Center) {
 	defer c.rootMpMu.Unlock()
 	c.RootMp = origin.RootMp
 }
+
+func (c *Center) GetAllModules() []ModuleInterface {
+	c.idMpMu.Lock()
+	defer c.idMpMu.Unlock()
+
+	res := []ModuleInterface{}
+	for _, v := range c.IdMp {
+		res = append(res, v)
+	}
+	return res
+}
