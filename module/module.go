@@ -48,3 +48,7 @@ func (m *ModuleInfo) GetRole() string {
 func (m *ModuleInfo) GetIPInfo() string {
 	return utils.StringPlus(m.Address, ":", strconv.Itoa(m.Port))
 }
+
+func (m *ModuleInfo) GetConfigPath() string {
+	return m.ConfigPath
+}
