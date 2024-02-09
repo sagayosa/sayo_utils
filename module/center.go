@@ -138,6 +138,16 @@ func (s *Center) UnRegisterModule(module ModuleInterface) {
 	}
 }
 
+func (s *Center) UnRegisterModuleByIdentifier(identifier string) {
+	modules := s.GetModuleByIdentifier(identifier)
+	if len(modules) == 0 {
+		return
+	}
+
+	module := modules[0]
+	s.UnRegisterModule(module)
+}
+
 func (s *Center) unRegisterModuleRole(module ModuleInterface) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
