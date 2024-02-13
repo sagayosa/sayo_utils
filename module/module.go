@@ -21,6 +21,11 @@ type ModuleConfig struct {
 	// Port       string `json:"port"`
 	Role       string `json:"role"`
 	EntryPoint string `json:"entry_point"`
+
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Author      string `json:"author"`
+	Preview     string `json:"preview"`
 }
 
 type ModuleInfo struct {
