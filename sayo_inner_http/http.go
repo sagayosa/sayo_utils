@@ -107,3 +107,15 @@ func GetModulePlugin(frameworkAddr string) (res []*module.Plugin, err error) {
 
 	return res, nil
 }
+
+func Heart(addr string) (bool, error) {
+	code, _, err := utils.Get(utils.StringPlus("http://", addr, "/heart"), nil)
+	if err != nil {
+		return false, err
+	}
+	if code != http.StatusOK {
+		return false, nil
+	}
+
+	return true, nil
+}
