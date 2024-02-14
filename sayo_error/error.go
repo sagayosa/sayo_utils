@@ -19,6 +19,7 @@ var (
 	ErrRunModulesFailed             = fmt.Errorf("register job run modules failed")
 	ErrGetAvailablePortTimesLimited = fmt.Errorf("get available port failed")
 	ErrModuleRestart                = fmt.Errorf("module heart failed, try to restart")
+	ErrModuleHeartFailed            = fmt.Errorf("module heart failed")
 )
 
 // web info error
@@ -56,6 +57,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrRunModulesFailed:             501,
 	ErrGetAvailablePortTimesLimited: 502,
 	ErrModuleRestart:                503,
+	ErrModuleHeartFailed:            504,
 
 	ErrInternalServer:             1000,
 	ErrDuplicateIdentifier:        1001,
