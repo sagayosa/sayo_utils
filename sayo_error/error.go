@@ -47,6 +47,7 @@ var (
 	ErrOpenIdentifierDuplicated   = fmt.Errorf("this identifier in open plugin is duplicated")
 	ErrOpenFileSelectorFailed     = fmt.Errorf("open file selector failed")
 	ErrNoDesktopModule            = fmt.Errorf("no desktop module")
+	ErrNoModule                   = fmt.Errorf("no module")
 )
 
 const (
@@ -83,6 +84,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrOpenIdentifierDuplicated:   1019,
 	ErrOpenFileSelectorFailed:     1020,
 	ErrNoDesktopModule:            1021,
+	ErrNoModule:                   1022,
 }
 
 func Msg(err error, format string, a ...interface{}) error {
