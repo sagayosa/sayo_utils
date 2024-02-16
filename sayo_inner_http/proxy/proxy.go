@@ -80,3 +80,24 @@ func PostPlugin(frameworkAddr string, req *sayoinnerhttp.AIDecisionResp) error {
 
 	return nil
 }
+
+func OpenFileSelector(frameworkAddr string) (result string, err error) {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopFileSelectorURL)
+	code, body, err := utils.Get(url, nil)
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+	}
+
+	return resp.Data.(string), nil
+}
