@@ -45,6 +45,7 @@ var (
 	ErrOpenNoIdentifier           = fmt.Errorf("open plugin dose not have this identifier")
 	ErrOpenIdentifierIsNotAllowed = fmt.Errorf("this identifier in open plugin is disallowed")
 	ErrOpenIdentifierDuplicated   = fmt.Errorf("this identifier in open plugin is duplicated")
+	ErrOpenFileSelectorFailed     = fmt.Errorf("open file selector failed")
 )
 
 const (

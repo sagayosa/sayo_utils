@@ -19,10 +19,11 @@ const (
 	GetModuleByRoleURL       = "/module/role"
 	GetModuleByRoleQueryRole = "role"
 
-	VoiceRecognizeURL      = "/voice"
-	AICompletionsURL       = "/chat/completions"
-	FrameWorkPullCenterURL = "/module/pull"
-	CorePullCenterURL      = "/pull"
+	VoiceRecognizeURL          = "/voice"
+	AICompletionsURL           = "/chat/completions"
+	FrameWorkPullCenterURL     = "/module/pull"
+	CorePullCenterURL          = "/pull"
+	DesktopOpenFileSelectorURL = "/fileselector"
 
 	CoreVoiceCommand         = "/command/voice"
 	CoreVoiceCommandJSONPath = "path"
