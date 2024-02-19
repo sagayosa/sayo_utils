@@ -10,6 +10,7 @@ import (
 type BaseResp struct {
 	Code int32       `json:"code"`
 	Msg  string      `json:"msg"`
+	Err  string      `json:"err"`
 	Data interface{} `json:"data"`
 }
 
@@ -35,6 +36,7 @@ func NewBaseRespByError(err error) *BaseResp {
 	return &BaseResp{
 		Code: code,
 		Msg:  msg,
+		Err:  err.Error(),
 	}
 }
 
