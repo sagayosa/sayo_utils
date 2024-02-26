@@ -15,7 +15,7 @@ const (
 	RolePlugin         = "plugin"
 )
 
-type HotKeyRegister struct {
+type HotKey struct {
 	Key string `json:"key"`
 	Url string `json:"url"`
 }
@@ -32,7 +32,7 @@ type ModuleConfig struct {
 	Author      string `json:"author"`
 	Preview     string `json:"preview"`
 
-	HotKeys []*HotKeyRegister `json:"hotkeys"`
+	HotKeys []*HotKey `json:"hotkeys"`
 }
 
 type ModuleInfo struct {

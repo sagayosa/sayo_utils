@@ -25,6 +25,7 @@ const (
 	FrameWorkPullCenterURL     = "/module/pull"
 	CorePullCenterURL          = "/pull"
 	DesktopOpenFileSelectorURL = "/fileselector"
+	DesktopRegisterHotKeyURL   = "/hotkey"
 
 	CoreVoiceCommand         = "/command/voice"
 	CoreVoiceCommandJSONPath = "path"
