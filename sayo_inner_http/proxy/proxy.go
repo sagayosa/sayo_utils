@@ -81,9 +81,16 @@ func PostPlugin(frameworkAddr string, req *sayoinnerhttp.AIDecisionResp) error {
 	return nil
 }
 
-func NewWindow(frameworkAddr string) error {
+type NewWindowReq struct {
+	Theme  string      `json:"theme"`
+	Url    string      `json:"url"`
+	Frame  bool        `json:"frame"`
+	Option interface{} `json:"option"`
+}
+
+func NewWindow(frameworkAddr string, req *NewWindowReq) error {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopNewWindowURL)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := utils.Post(url, req)
 	if err != nil {
 		return err
 	}
@@ -121,4 +128,31 @@ func OpenFileSelector(frameworkAddr string) (result string, err error) {
 	}
 
 	return resp.Data.(string), nil
+}
+
+type RegisterHotKeyReq struct {
+	Identifier string `json:"identifier"`
+	Url        string `json:"url"`
+	Key        string `json:"key"`
+}
+
+func RegisterHotKey(frameworkAddr string, req *RegisterHotKeyReq) error {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopRegisterHotKeyURL)
+	code, body, err := utils.Post(url, req)
+	if err != nil {
+		return err
+	}
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrNewWindowFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrNewWindowFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
 }

@@ -39,4 +39,5 @@ const (
 	ProxyPluginURL                    = "/proxy/plugin"
 	ProxyDesktopFileSelectorURL       = "/proxy/desktop/fileselector"
 	ProxyDesktopNewWindowURL          = "/proxy/desktop/window"
+	ProxyDesktopRegisterHotKeyURL     = "/proxy/desktop/hotkey"
 )
