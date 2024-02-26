@@ -38,4 +38,5 @@ const (
 	ProxyVoiceRecognizeVoiceJSONPath  = "path"
 	ProxyPluginURL                    = "/proxy/plugin"
 	ProxyDesktopFileSelectorURL       = "/proxy/desktop/fileselector"
+	ProxyDesktopNewWindowURL          = "/proxy/desktop/window"
 )

@@ -81,6 +81,27 @@ func PostPlugin(frameworkAddr string, req *sayoinnerhttp.AIDecisionResp) error {
 	return nil
 }
 
+func NewWindow(frameworkAddr string) error {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopNewWindowURL)
+	code, body, err := utils.Get(url, nil)
+	if err != nil {
+		return err
+	}
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrNewWindowFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrNewWindowFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
+}
+
 func OpenFileSelector(frameworkAddr string) (result string, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopFileSelectorURL)
 	code, body, err := utils.Get(url, nil)
