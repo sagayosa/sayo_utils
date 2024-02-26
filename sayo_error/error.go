@@ -49,6 +49,7 @@ var (
 	ErrNoDesktopModule            = fmt.Errorf("no desktop module")
 	ErrNoModule                   = fmt.Errorf("no module")
 	ErrRegisterHotKeyFailed       = fmt.Errorf("register hot key failed")
+	ErrNewWindowFailed            = fmt.Errorf("open new window failed")
 )
 
 const (
@@ -87,6 +88,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNoDesktopModule:            1021,
 	ErrNoModule:                   1022,
 	ErrRegisterHotKeyFailed:       1023,
+	ErrNewWindowFailed:            1024,
 }
 
 func Msg(err error, format string, a ...interface{}) error {

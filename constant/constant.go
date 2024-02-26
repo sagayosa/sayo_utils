@@ -24,6 +24,7 @@ const (
 	AICompletionsURL           = "/chat/completions"
 	FrameWorkPullCenterURL     = "/module/pull"
 	CorePullCenterURL          = "/pull"
+	DesktopNewWindowURL        = "/window"
 	DesktopOpenFileSelectorURL = "/fileselector"
 	DesktopRegisterHotKeyURL   = "/hotkey"
 

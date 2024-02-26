@@ -11,6 +11,34 @@ import (
 	"github.com/grteen/sayo_utils/utils"
 )
 
+type NewWindowReq struct {
+	Theme  string      `json:"theme"`
+	Url    string      `json:"url"`
+	Frame  string      `json:"frame"`
+	Option interface{} `json:"option"`
+}
+
+func NewWindow(desktopAddr string, req *NewWindowReq) error {
+	url := utils.StringPlus("http://", desktopAddr, constant.DesktopNewWindowURL)
+	code, body, err := utils.Post(url, req)
+	if err != nil {
+		return err
+	}
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrNewWindowFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrNewWindowFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
+}
+
 func OpenFileSelector(desktopAddr string) (result string, err error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopOpenFileSelectorURL)
 	code, body, err := utils.Get(url, nil)
