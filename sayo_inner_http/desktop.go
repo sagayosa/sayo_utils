@@ -14,7 +14,7 @@ import (
 type NewWindowReq struct {
 	Theme  string      `json:"theme"`
 	Url    string      `json:"url"`
-	Frame  string      `json:"frame"`
+	Frame  bool        `json:"frame"`
 	Option interface{} `json:"option"`
 }
 
