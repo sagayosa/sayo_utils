@@ -18,6 +18,13 @@ type Center struct {
 	rootMpMu sync.Mutex
 }
 
+func (c *Center) GetRoots() map[string]*Module {
+	c.rootMpMu.Lock()
+	defer c.rootMpMu.Unlock()
+
+	return c.RootMp
+}
+
 func (c *Center) GetModuleByRoot(root string) []*Module {
 	c.rootMpMu.Lock()
 	defer c.rootMpMu.Unlock()
