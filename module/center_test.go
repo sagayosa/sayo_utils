@@ -21,12 +21,12 @@ func TestRegisterModule(t *testing.T) {
 	c := GetInstance()
 
 	data := []struct {
-		input  []ModuleInterface
-		output map[string][]ModuleInterface
+		input  []*Module
+		output map[string][]*Module
 	}{
 		{
-			input: []ModuleInterface{&r1, &r2, &r3, &r4, &r5},
-			output: map[string][]ModuleInterface{
+			input: []*Module{&r1, &r2, &r3, &r4, &r5},
+			output: map[string][]*Module{
 				RoleVoiceRecognize: {&r1},
 				RoleVoiceGenerate:  {&r2},
 				RoleAI:             {&r3},
@@ -35,8 +35,8 @@ func TestRegisterModule(t *testing.T) {
 			},
 		},
 		{
-			input: []ModuleInterface{&r1, &r2, &r3, &r4, &r5, &r6, &r7, &r8},
-			output: map[string][]ModuleInterface{
+			input: []*Module{&r1, &r2, &r3, &r4, &r5, &r6, &r7, &r8},
+			output: map[string][]*Module{
 				RoleVoiceRecognize: {&r1},
 				RoleVoiceGenerate:  {&r2, &r7, &r8},
 				RoleAI:             {&r3, &r6},
@@ -45,8 +45,8 @@ func TestRegisterModule(t *testing.T) {
 			},
 		},
 		{
-			input: []ModuleInterface{&r2, &r3, &r5, &r7},
-			output: map[string][]ModuleInterface{
+			input: []*Module{&r2, &r3, &r5, &r7},
+			output: map[string][]*Module{
 				RoleVoiceGenerate: {&r2, &r7},
 				RoleAI:            {&r3},
 				RoleCore:          {&r5},
@@ -80,7 +80,7 @@ func TestUnRegisterModule(t *testing.T) {
 			register   []*Module
 			unRegister []*Module
 		}
-		output map[string][]ModuleInterface
+		output map[string][]*Module
 	}{
 		{
 			input: struct {
@@ -90,7 +90,7 @@ func TestUnRegisterModule(t *testing.T) {
 				register:   []*Module{&r1, &r2, &r3, &r4, &r5},
 				unRegister: []*Module{&r1, &r2, &r3},
 			},
-			output: map[string][]ModuleInterface{
+			output: map[string][]*Module{
 				RoleDesktop: {&r4},
 				RoleCore:    {&r5},
 			},
@@ -103,7 +103,7 @@ func TestUnRegisterModule(t *testing.T) {
 				register:   []*Module{&r1, &r2, &r3, &r4, &r5, &r7, &r8},
 				unRegister: []*Module{&r1, &r2, &r3, &r7},
 			},
-			output: map[string][]ModuleInterface{
+			output: map[string][]*Module{
 				RoleDesktop:       {&r4},
 				RoleCore:          {&r5},
 				RoleVoiceGenerate: {&r8},
@@ -142,15 +142,15 @@ func TestGetModuleByIdentifier(t *testing.T) {
 
 	data := []struct {
 		input  string
-		output []ModuleInterface
+		output []*Module
 	}{
 		{
 			input:  "1",
-			output: []ModuleInterface{&r1},
+			output: []*Module{&r1},
 		},
 		{
 			input:  "-2",
-			output: []ModuleInterface{&r2},
+			output: []*Module{&r2},
 		},
 		{
 			input:  "2",

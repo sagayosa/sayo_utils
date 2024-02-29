@@ -7,25 +7,18 @@ import (
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 )
 
-type ModuleInterface interface {
-	GetRole() string
-	GetIdentifier() string
-	GetIPInfo() string
-	GetConfigPath() string
-}
-
 type Center struct {
-	RoleMp   map[string][]ModuleInterface `json:"role_map"`
+	RoleMp   map[string][]*Module `json:"role_map"`
 	roleMpMu sync.Mutex
 
-	IdMp   map[string]ModuleInterface `json:"id_map"`
+	IdMp   map[string]*Module `json:"id_map"`
 	idMpMu sync.Mutex
 
-	RootMp   map[string]ModuleInterface `json:"root_map"`
+	RootMp   map[string]*Module `json:"root_map"`
 	rootMpMu sync.Mutex
 }
 
-func (c *Center) GetPluginByRoot(root string) []*Plugin {
+func (c *Center) GetModuleByRoot(root string) []*Module {
 	c.rootMpMu.Lock()
 	defer c.rootMpMu.Unlock()
 
@@ -34,21 +27,21 @@ func (c *Center) GetPluginByRoot(root string) []*Plugin {
 		return nil
 	}
 
-	return []*Plugin{p.(*Plugin)}
+	return []*Module{p}
 }
 
-func (s *Center) GetPlugins() []*Plugin {
-	res := []*Plugin{}
+func (s *Center) GetModules() []*Module {
+	res := []*Module{}
 	modules := s.GetModulesByRole(constant.RolePlugin)
 	for _, m := range modules {
-		p := m.(*Plugin)
+		p := m
 		res = append(res, p)
 	}
 
 	return res
 }
 
-func (s *Center) GetModulesByRole(role string) []ModuleInterface {
+func (s *Center) GetModulesByRole(role string) []*Module {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
@@ -59,7 +52,7 @@ func (s *Center) GetModulesByRole(role string) []ModuleInterface {
 	return c
 }
 
-func (s *Center) GetModuleByIdentifier(id string) []ModuleInterface {
+func (s *Center) GetModuleByIdentifier(id string) []*Module {
 	s.idMpMu.Lock()
 	defer s.idMpMu.Unlock()
 
@@ -67,48 +60,25 @@ func (s *Center) GetModuleByIdentifier(id string) []ModuleInterface {
 	if !ok {
 		return nil
 	}
-	return []ModuleInterface{c}
+	return []*Module{c}
 }
 
-func (c *Center) RegisterPluginRoot(plugin *Plugin) error {
-	c.rootMpMu.Lock()
-	defer c.rootMpMu.Unlock()
-
-	for _, r := range plugin.Declare {
-		_, ok := c.RootMp[r.Root]
-		if ok {
-			return sayoerror.ErrDuplicateRootCommand
-		}
-
-		c.RootMp[r.Root] = plugin
-	}
-
-	return nil
-}
-
-func (s *Center) RegisterModule(module ModuleInterface) error {
+func (s *Center) RegisterModule(module *Module) error {
 	if err := s.registerModuleToIdentifier(module); err != nil {
 		return err
 	}
 	s.registerModuleToRole(module)
-
-	if module.GetRole() == RolePlugin {
-		p, ok := module.(*Plugin)
-		if !ok {
-			return sayoerror.Msg(sayoerror.ErrRegisterFailed, "%v", "can't cast module to Plugin")
-		}
-		s.RegisterPluginRoot(p)
-	}
+	s.registerModuleToRoot(module)
 	return nil
 }
 
-func (s *Center) registerModuleToRole(module ModuleInterface) {
+func (s *Center) registerModuleToRole(module *Module) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
 	c, ok := s.RoleMp[module.GetRole()]
 	if !ok {
-		s.RoleMp[module.GetRole()] = []ModuleInterface{module}
+		s.RoleMp[module.GetRole()] = []*Module{module}
 		return
 	}
 
@@ -116,7 +86,7 @@ func (s *Center) registerModuleToRole(module ModuleInterface) {
 	s.RoleMp[module.GetRole()] = c
 }
 
-func (s *Center) registerModuleToIdentifier(module ModuleInterface) error {
+func (s *Center) registerModuleToIdentifier(module *Module) error {
 	s.idMpMu.Lock()
 	defer s.idMpMu.Unlock()
 
@@ -129,13 +99,26 @@ func (s *Center) registerModuleToIdentifier(module ModuleInterface) error {
 	return nil
 }
 
-func (s *Center) UnRegisterModule(module ModuleInterface) {
+func (c *Center) registerModuleToRoot(Module *Module) error {
+	c.rootMpMu.Lock()
+	defer c.rootMpMu.Unlock()
+
+	for _, r := range Module.Declare {
+		_, ok := c.RootMp[r.Root]
+		if ok {
+			return sayoerror.ErrDuplicateRootCommand
+		}
+
+		c.RootMp[r.Root] = Module
+	}
+
+	return nil
+}
+
+func (s *Center) UnRegisterModule(module *Module) {
 	s.unRegisterModuleRole(module)
 	s.unRegisterModuleIdentifier(module)
-
-	if module.GetRole() == RolePlugin {
-		s.unRegisterPluginRoot(module.(*Plugin))
-	}
+	s.unRegisterModuleRoot(module)
 }
 
 func (s *Center) UnRegisterModuleByIdentifier(identifier string) {
@@ -148,7 +131,7 @@ func (s *Center) UnRegisterModuleByIdentifier(identifier string) {
 	s.UnRegisterModule(module)
 }
 
-func (s *Center) unRegisterModuleRole(module ModuleInterface) {
+func (s *Center) unRegisterModuleRole(module *Module) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
@@ -167,16 +150,16 @@ func (s *Center) unRegisterModuleRole(module ModuleInterface) {
 	}
 }
 
-func (s *Center) unRegisterModuleIdentifier(module ModuleInterface) {
+func (s *Center) unRegisterModuleIdentifier(module *Module) {
 	s.idMpMu.Lock()
 	defer s.idMpMu.Unlock()
 	delete(s.IdMp, module.GetIdentifier())
 }
 
-func (s *Center) unRegisterPluginRoot(plugin *Plugin) {
+func (s *Center) unRegisterModuleRoot(Module *Module) {
 	s.rootMpMu.Lock()
 	defer s.rootMpMu.Unlock()
-	for _, r := range plugin.Declare {
+	for _, r := range Module.Declare {
 		delete(s.RootMp, r.Root)
 	}
 }
@@ -188,9 +171,9 @@ var (
 
 func NewCenter() *Center {
 	return &Center{
-		RoleMp: make(map[string][]ModuleInterface),
-		IdMp:   make(map[string]ModuleInterface),
-		RootMp: make(map[string]ModuleInterface),
+		RoleMp: make(map[string][]*Module),
+		IdMp:   make(map[string]*Module),
+		RootMp: make(map[string]*Module),
 	}
 }
 
@@ -202,8 +185,8 @@ func GetInstance() *Center {
 }
 
 func (c *Center) ClearModule() {
-	c.RoleMp = make(map[string][]ModuleInterface)
-	c.IdMp = make(map[string]ModuleInterface)
+	c.RoleMp = make(map[string][]*Module)
+	c.IdMp = make(map[string]*Module)
 }
 
 func (c *Center) CopyOrigin(origin *Center) {
@@ -220,11 +203,11 @@ func (c *Center) CopyOrigin(origin *Center) {
 	c.RootMp = origin.RootMp
 }
 
-func (c *Center) GetAllModules() []ModuleInterface {
+func (c *Center) GetAllModules() []*Module {
 	c.idMpMu.Lock()
 	defer c.idMpMu.Unlock()
 
-	res := []ModuleInterface{}
+	res := []*Module{}
 	for _, v := range c.IdMp {
 		res = append(res, v)
 	}
