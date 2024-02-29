@@ -8,7 +8,7 @@ import (
 	"github.com/grteen/sayo_utils/utils"
 )
 
-func PostPlugin(plugin *module.Plugin, decision *AIDecisionResp) error {
+func PostPlugin(plugin *module.Module, decision *AIDecisionResp) error {
 	uri := ""
 	for _, r := range plugin.Declare {
 		if r.Root == decision.Root {

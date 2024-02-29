@@ -94,13 +94,13 @@ func GetModuleAI(frameworkAddr string) (res []*module.Module, err error) {
 	return res, nil
 }
 
-func GetModulePlugin(frameworkAddr string) (res []*module.Plugin, err error) {
+func GetModulePlugin(frameworkAddr string) (res []*module.Module, err error) {
 	body, err := GetModuleByRole(frameworkAddr, constant.RolePlugin)
 	if err != nil {
 		return
 	}
 
-	res = []*module.Plugin{}
+	res = []*module.Module{}
 	if err = utils.UnMarshalUnknownAny(body, &res); err != nil {
 		return
 	}

@@ -29,9 +29,9 @@ func PullCenter(frameworkURL string) (result *module.Center, err error) {
 	}
 
 	type temp struct {
-		RoleMp map[string][]*module.Plugin `json:"role_map"`
+		RoleMp map[string][]*module.Module `json:"role_map"`
 	}
-	t := &temp{RoleMp: make(map[string][]*module.Plugin)}
+	t := &temp{RoleMp: make(map[string][]*module.Module)}
 	if err := utils.UnMarshalUnknownAny(resp.Data, t); err != nil {
 		return nil, err
 	}
