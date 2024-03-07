@@ -2,32 +2,7 @@ package sayoerror
 
 import (
 	"fmt"
-	"runtime"
 )
-
-type Error struct {
-	ExposeErr error  `json:"expose_err"`
-	DetailErr error  `json:"detail_err"`
-	Message   string `json:"msg"`
-	Stack     string `json:"stack"`
-}
-
-func (e *Error) Msg(msg string) *Error {
-	e.Message = msg
-	return e
-}
-
-func New(err error) *Error {
-	pc, file, line, _ := runtime.Caller(1)
-	details := runtime.FuncForPC(pc)
-	stack := fmt.Sprintf("%v:%v %v", file, line, details.Name())
-
-	return &Error{
-		ExposeErr: GetErrByErr(err),
-		DetailErr: err,
-		Stack:     stack,
-	}
-}
 
 // GetErrMsgByErr return the error code and the error message
 // If the error is not registered, then return the ErrInternalServer's code and message
@@ -38,15 +13,6 @@ func GetErrMsgByErr(err error) (int32, string) {
 	}
 
 	return code, err.Error()
-}
-
-func GetErrByErr(err error) error {
-	_, ok := errorMp[err]
-	if !ok {
-		return ErrInternalServer
-	}
-
-	return err
 }
 
 // internal server error
@@ -127,4 +93,8 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrRegisterHotKeyFailed:       1023,
 	ErrNewWindowFailed:            1024,
 	ErrTranslateFailed:            1025,
+}
+
+func ErrMsg(err error, msg string) error {
+	return fmt.Errorf("%w: %v", err, msg)
 }
