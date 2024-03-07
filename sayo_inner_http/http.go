@@ -2,6 +2,7 @@ package sayoinnerhttp
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
@@ -17,7 +18,7 @@ func GetModuleByRole(frameworkAddr string, role string) (result interface{}, err
 		return
 	}
 	if code != http.StatusOK {
-		return nil, sayoerror.Msg(sayoerror.ErrCoreGetRoleFailed, "StatusCode = %v", code)
+		return nil, sayoerror.ErrMsg(sayoerror.ErrCoreGetRoleFailed, fmt.Sprintf("StatusCode = %v", code))
 	}
 
 	resp := &baseresp.BaseResp{}
