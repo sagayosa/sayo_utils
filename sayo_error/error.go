@@ -87,6 +87,7 @@ var (
 	ErrNoModule                   = fmt.Errorf("no module")
 	ErrRegisterHotKeyFailed       = fmt.Errorf("register hot key failed")
 	ErrNewWindowFailed            = fmt.Errorf("open new window failed")
+	ErrTranslateFailed            = fmt.Errorf("translate failed")
 )
 
 const (
@@ -126,4 +127,5 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNoModule:                   1022,
 	ErrRegisterHotKeyFailed:       1023,
 	ErrNewWindowFailed:            1024,
+	ErrTranslateFailed:            1025,
 }
