@@ -17,7 +17,7 @@ func (e *Error) Msg(msg string) *Error {
 	return e
 }
 
-func New(err error, msg string) *Error {
+func New(err error) *Error {
 	pc, file, line, _ := runtime.Caller(1)
 	details := runtime.FuncForPC(pc)
 	stack := fmt.Sprintf("%v:%v %v", file, line, details.Name())
@@ -25,7 +25,6 @@ func New(err error, msg string) *Error {
 	return &Error{
 		ExposeErr: GetErrByErr(err),
 		DetailErr: err,
-		Message:   msg,
 		Stack:     stack,
 	}
 }
