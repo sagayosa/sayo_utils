@@ -1,9 +1,11 @@
 package sayoerror
 
+import "fmt"
+
 func ErrorInStatusCode(err error, statusCode int) error {
-	return Msg(err, "status code = %v", statusCode)
+	return ErrMsg(err, fmt.Sprintf("status code = %v", statusCode))
 }
 
 func ErrorInMsgCode(err error, code int, msg string) error {
-	return Msg(err, "code = %v msg = %v", code, msg)
+	return ErrMsg(err, fmt.Sprintf("code = %v msg = %v", code, msg))
 }

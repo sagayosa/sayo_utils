@@ -1,6 +1,7 @@
 package sayoinnerhttp
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/grteen/sayo_utils/module"
@@ -16,7 +17,7 @@ func PostPlugin(plugin *module.Module, decision *AIDecisionResp) error {
 		}
 	}
 	if uri == "" {
-		return sayoerror.Msg(sayoerror.ErrPostPluginNoUri, "root = %v", decision.Root)
+		return sayoerror.ErrMsg(sayoerror.ErrPostPluginNoUri, fmt.Sprintf("root = %v", decision.Root))
 	}
 
 	url := utils.StringPlus("http://", plugin.GetIPInfo(), uri)
