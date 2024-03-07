@@ -1,8 +1,36 @@
 package sayoerror
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
-// return the error code and the error message
+type Error struct {
+	ExposeErr error  `json:"expose_err"`
+	DetailErr error  `json:"detail_err"`
+	Message   string `json:"msg"`
+	Stack     string `json:"stack"`
+}
+
+func (e *Error) Msg(msg string) *Error {
+	e.Message = msg
+	return e
+}
+
+func New(err error, msg string) *Error {
+	pc, file, line, _ := runtime.Caller(1)
+	details := runtime.FuncForPC(pc)
+	stack := fmt.Sprintf("%v:%v %v", file, line, details.Name())
+
+	return &Error{
+		ExposeErr: GetErrByErr(err),
+		DetailErr: err,
+		Message:   msg,
+		Stack:     stack,
+	}
+}
+
+// GetErrMsgByErr return the error code and the error message
 // If the error is not registered, then return the ErrInternalServer's code and message
 func GetErrMsgByErr(err error) (int32, string) {
 	code, ok := errorMp[err]
@@ -11,6 +39,15 @@ func GetErrMsgByErr(err error) (int32, string) {
 	}
 
 	return code, err.Error()
+}
+
+func GetErrByErr(err error) error {
+	_, ok := errorMp[err]
+	if !ok {
+		return ErrInternalServer
+	}
+
+	return err
 }
 
 // internal server error
@@ -89,8 +126,4 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNoModule:                   1022,
 	ErrRegisterHotKeyFailed:       1023,
 	ErrNewWindowFailed:            1024,
-}
-
-func Msg(err error, format string, a ...interface{}) error {
-	return fmt.Errorf("%w, [msg]: %s", err, fmt.Sprintf(format, a...))
 }
