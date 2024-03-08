@@ -158,3 +158,36 @@ func WindowSetPosition(desktopAddr string, uuid string, x int, y int) error {
 
 	return nil
 }
+
+func CursorPosition(desktopAddr string) (x int, y int, err error) {
+	url := utils.StringPlus("http://", desktopAddr, constant.DesktopCursorPossition)
+	code, body, err := utils.Get(url, nil)
+	if err != nil {
+		return
+	}
+
+	if code != http.StatusOK {
+		err = sayoerror.ErrorInStatusCode(sayoerror.ErrWindowSetPositionFailed, code)
+		return
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		err = sayoerror.ErrorInMsgCode(sayoerror.ErrWindowSetPositionFailed, int(resp.Code), resp.Msg)
+		return
+	}
+
+	result := &struct {
+		X int `json:"x"`
+		Y int `json:"y"`
+	}{}
+
+	if err = utils.UnMarshalUnknownAny(resp.Data, result); err != nil {
+		return
+	}
+
+	return result.X, result.Y, nil
+}

@@ -30,6 +30,7 @@ const (
 	DesktopWindowHideURL       = "/window/hide"
 	DesktopWindowShowURL       = "/window/show"
 	DesktopWindowSetPosition   = "/window/position"
+	DesktopCursorPossition     = "/cursorposition"
 
 	CoreVoiceCommand         = "/command/voice"
 	CoreVoiceCommandJSONPath = "path"
