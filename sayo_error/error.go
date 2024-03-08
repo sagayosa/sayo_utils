@@ -55,6 +55,7 @@ var (
 	ErrTranslateFailed            = fmt.Errorf("translate failed")
 	ErrWindowHideFailed           = fmt.Errorf("window hide failed")
 	ErrWindowShowFailed           = fmt.Errorf("window show failed")
+	ErrWindowSetPositionFailed    = fmt.Errorf("window set position failed")
 )
 
 const (
@@ -96,6 +97,8 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrNewWindowFailed:            1024,
 	ErrTranslateFailed:            1025,
 	ErrWindowHideFailed:           1026,
+	ErrWindowShowFailed:           1027,
+	ErrWindowSetPositionFailed:    1028,
 }
 
 func ErrMsg(err error, msg string) error {

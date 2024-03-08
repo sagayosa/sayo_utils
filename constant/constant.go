@@ -29,6 +29,7 @@ const (
 	DesktopRegisterHotKeyURL   = "/hotkey"
 	DesktopWindowHideURL       = "/window/hide"
 	DesktopWindowShowURL       = "/window/show"
+	DesktopWindowSetPosition   = "/window/position"
 
 	CoreVoiceCommand         = "/command/voice"
 	CoreVoiceCommandJSONPath = "path"
