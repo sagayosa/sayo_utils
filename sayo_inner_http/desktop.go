@@ -18,25 +18,25 @@ type NewWindowReq struct {
 	Option interface{} `json:"option"`
 }
 
-func NewWindow(desktopAddr string, req *NewWindowReq) error {
+func NewWindow(desktopAddr string, req *NewWindowReq) (string, error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopNewWindowURL)
 	code, body, err := utils.Post(url, req)
 	if err != nil {
-		return err
+		return "", err
 	}
 	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrNewWindowFailed, code)
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrNewWindowFailed, code)
 	}
 
 	resp := &baseresp.BaseResp{}
 	if err = json.Unmarshal(body, resp); err != nil {
-		return err
+		return "", err
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrNewWindowFailed, int(resp.Code), resp.Msg)
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrNewWindowFailed, int(resp.Code), resp.Msg)
 	}
 
-	return nil
+	return resp.Data.(string), nil
 }
 
 func OpenFileSelector(desktopAddr string) (result string, err error) {
