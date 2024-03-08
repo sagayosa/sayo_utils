@@ -87,7 +87,7 @@ func RegisterHotKey(desktopAddr string, identifier string, hotkey *module.HotKey
 
 func WindowHide(desktopAddr string, uuid string) error {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowHideURL)
-	code, body, err := utils.Post(url, struct {
+	code, body, err := utils.Put(url, struct {
 		UUID string `json:"uuid"`
 	}{UUID: uuid})
 	if err != nil {
@@ -111,7 +111,7 @@ func WindowHide(desktopAddr string, uuid string) error {
 
 func WindowShow(desktopAddr string, uuid string) error {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowShowURL)
-	code, body, err := utils.Post(url, struct {
+	code, body, err := utils.Put(url, struct {
 		UUID string `json:"uuid"`
 	}{UUID: uuid})
 	if err != nil {
@@ -135,7 +135,7 @@ func WindowShow(desktopAddr string, uuid string) error {
 
 func WindowSetPosition(desktopAddr string, uuid string, x int, y int) error {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowSetPosition)
-	code, body, err := utils.Post(url, struct {
+	code, body, err := utils.Put(url, struct {
 		UUID string `json:"uuid"`
 		X    int    `json:"x"`
 		Y    int    `json:"y"`
