@@ -108,3 +108,27 @@ func WindowHide(desktopAddr string, uuid string) error {
 
 	return nil
 }
+
+func WindowShow(desktopAddr string, uuid string) error {
+	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowShowURL)
+	code, body, err := utils.Post(url, struct {
+		UUID string `json:"uuid"`
+	}{UUID: uuid})
+	if err != nil {
+		return err
+	}
+
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowShowFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowShowFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
+}

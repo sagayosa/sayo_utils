@@ -54,6 +54,7 @@ var (
 	ErrNewWindowFailed            = fmt.Errorf("open new window failed")
 	ErrTranslateFailed            = fmt.Errorf("translate failed")
 	ErrWindowHideFailed           = fmt.Errorf("window hide failed")
+	ErrWindowShowFailed           = fmt.Errorf("window show failed")
 )
 
 const (
