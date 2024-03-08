@@ -84,3 +84,27 @@ func RegisterHotKey(desktopAddr string, identifier string, hotkey *module.HotKey
 
 	return nil
 }
+
+func WindowHide(desktopAddr string, uuid string) error {
+	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowHideURL)
+	code, body, err := utils.Post(url, struct {
+		UUID string `json:"uuid"`
+	}{UUID: uuid})
+	if err != nil {
+		return err
+	}
+
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowHideFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowHideFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
+}

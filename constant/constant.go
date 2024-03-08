@@ -27,6 +27,7 @@ const (
 	DesktopNewWindowURL        = "/window"
 	DesktopOpenFileSelectorURL = "/fileselector"
 	DesktopRegisterHotKeyURL   = "/hotkey"
+	DesktopWindowHideURL       = "/window/hide"
 
 	CoreVoiceCommand         = "/command/voice"
 	CoreVoiceCommandJSONPath = "path"

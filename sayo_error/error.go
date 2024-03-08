@@ -53,6 +53,7 @@ var (
 	ErrRegisterHotKeyFailed       = fmt.Errorf("register hot key failed")
 	ErrNewWindowFailed            = fmt.Errorf("open new window failed")
 	ErrTranslateFailed            = fmt.Errorf("translate failed")
+	ErrWindowHideFailed           = fmt.Errorf("window hide failed")
 )
 
 const (
@@ -93,6 +94,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrRegisterHotKeyFailed:       1023,
 	ErrNewWindowFailed:            1024,
 	ErrTranslateFailed:            1025,
+	ErrWindowHideFailed:           1026,
 }
 
 func ErrMsg(err error, msg string) error {
