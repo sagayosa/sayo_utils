@@ -32,6 +32,7 @@ const (
 	DesktopWindowSetPosition   = "/window/position"
 	DesktopCursorPossition     = "/info/cursorposition"
 	DesktopWorkArea            = "/info/workarea"
+	DesktopWindowURL           = "/window/url"
 
 	CoreVoiceCommand         = "/command/voice"
 	CoreVoiceCommandJSONPath = "path"

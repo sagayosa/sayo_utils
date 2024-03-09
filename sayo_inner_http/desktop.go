@@ -224,3 +224,28 @@ func WorkArea(desktopAddr string) (width int, height int, err error) {
 
 	return result.Width, result.Height, nil
 }
+
+func LoadURL(desktopAddr string, uuid string, targetUrl string) error {
+	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowURL)
+	code, body, err := utils.Put(url, struct {
+		UUID string `json:"uuid"`
+		URL  string `json:"url"`
+	}{UUID: uuid, URL: targetUrl})
+	if err != nil {
+		return err
+	}
+
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrLoadURLFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrLoadURLFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
+}
