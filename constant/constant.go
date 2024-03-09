@@ -30,7 +30,7 @@ const (
 	DesktopWindowHideURL       = "/window/hide"
 	DesktopWindowShowURL       = "/window/show"
 	DesktopWindowSetPosition   = "/window/position"
-	DesktopCursorPossition     = "/cursorposition"
+	DesktopCursorPossition     = "/info/cursorposition"
 	DesktopWorkArea            = "/info/workarea"
 
 	CoreVoiceCommand         = "/command/voice"
@@ -48,5 +48,5 @@ const (
 	ProxyDesktopWindowHideURL         = "/proxy/desktop/window/hide"
 	ProxyDesktopWindowShowURL         = "/proxy/desktop/window/show"
 	ProxyDesktopWindowSetPosition     = "/proxy/desktop/window/position"
-	ProxyDesktopCursorPossition       = "/proxy/desktop/cursorposition"
+	ProxyDesktopCursorPossition       = "/proxy/desktop/info/cursorposition"
 )
