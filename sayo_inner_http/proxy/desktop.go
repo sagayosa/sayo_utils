@@ -160,6 +160,31 @@ func WindowSetPosition(frameworkAddr string, uuid string, x int, y int) error {
 	return nil
 }
 
+func LoadURL(frameworkAddr string, uuid string, targetUrl string) error {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowURLURL)
+	code, body, err := utils.Put(url, struct {
+		UUID string `json:"uuid"`
+		URL  string `json:"url"`
+	}{UUID: uuid, URL: targetUrl})
+	if err != nil {
+		return err
+	}
+
+	if code != http.StatusOK {
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrLoadURLFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return err
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return sayoerror.ErrorInMsgCode(sayoerror.ErrLoadURLFailed, int(resp.Code), resp.Msg)
+	}
+
+	return nil
+}
+
 func CursorPosition(frameworkAddr string) (x int, y int, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopCursorPossition)
 	code, body, err := utils.Get(url, nil)

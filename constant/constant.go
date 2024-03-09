@@ -51,4 +51,5 @@ const (
 	ProxyDesktopWindowSetPosition     = "/proxy/desktop/window/position"
 	ProxyDesktopCursorPossition       = "/proxy/desktop/info/cursorposition"
 	ProxyDesktopWorkArea              = "/proxy/desktop/info/workarea"
+	ProxyDesktopWindowURLURL          = "/proxy/desktop/window/url"
 )
