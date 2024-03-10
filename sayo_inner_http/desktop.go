@@ -108,6 +108,29 @@ func GetWindow(desktopAddr string, way string, uuid string) (result interface{},
 	return resp.Data, nil
 }
 
+func PutWindow(desktopAddr string, way string, uuid string, argument interface{}) (result interface{}, err error) {
+	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowExposeURL, "/", way, "/", uuid)
+	code, body, err := utils.Put(url, argument)
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		err = sayoerror.ErrorInStatusCode(sayoerror.ErrPutWindowFailed, code)
+		return
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		err = sayoerror.ErrorInMsgCode(sayoerror.ErrPutWindowFailed, int(resp.Code), resp.Msg)
+		return
+	}
+
+	return resp.Data, nil
+}
+
 func WindowHide(desktopAddr string, uuid string) error {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowHideURL)
 	code, body, err := utils.Put(url, struct {
