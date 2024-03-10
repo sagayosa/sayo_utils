@@ -81,6 +81,9 @@ func JSONPersistence(filePath string, source interface{}) error {
 }
 
 func httpRequest(way string, URL string, data interface{}) (code int, body []byte, err error) {
+	if data == nil {
+		data = struct{}{}
+	}
 	bts, err := json.Marshal(data)
 	if err != nil {
 		return
@@ -134,6 +137,9 @@ func Post(URL string, data interface{}) (code int, body []byte, err error) {
 }
 
 func Get(URL string, data map[string]interface{}) (code int, body []byte, err error) {
+	if data == nil {
+		data = make(map[string]interface{})
+	}
 	params := url.Values{}
 	for k, v := range data {
 		params.Add(k, fmt.Sprintf("%v", v))
