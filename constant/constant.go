@@ -43,7 +43,7 @@ const (
 	ProxyDesktopFileSelectorURL       = "/proxy/desktop/fileselector"
 	ProxyDesktopNewWindowURL          = "/proxy/desktop/window"
 	ProxyDesktopRegisterHotKeyURL     = "/proxy/desktop/hotkey"
-	ProxyDesktopWindowExposeURL       = "/window"
+	ProxyDesktopWindowExposeURL       = "/proxy/desktop/window"
 	ProxyDesktopCursorPossition       = "/proxy/desktop/info/cursorposition"
 	ProxyDesktopWorkArea              = "/proxy/desktop/info/workarea"
 )
