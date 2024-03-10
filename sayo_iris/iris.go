@@ -14,7 +14,7 @@ func IrisCtxJSONWrap(f func(ctx iris.Context) (*baseresp.BaseResp, error)) Handl
 	return func(ctx iris.Context) {
 		resp, err := f(ctx)
 		if err != nil {
-			sayolog.Err(err).Msg("stack: %v", debug.Stack()).Error()
+			sayolog.Err(err).Msg("stack: %v", string(debug.Stack())).Error()
 		}
 		ctx.JSON(resp)
 	}
