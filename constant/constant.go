@@ -27,6 +27,7 @@ const (
 	DesktopNewWindowURL        = "/window"
 	DesktopOpenFileSelectorURL = "/fileselector"
 	DesktopRegisterHotKeyURL   = "/hotkey"
+	DesktopWindowExposeURL     = "/window"
 	DesktopWindowHideURL       = "/window/hide"
 	DesktopWindowShowURL       = "/window/show"
 	DesktopWindowSetPosition   = "/window/position"

@@ -58,6 +58,8 @@ var (
 	ErrWindowSetPositionFailed    = fmt.Errorf("window set position failed")
 	ErrWorkAreaFailed             = fmt.Errorf("window get workarea failed")
 	ErrLoadURLFailed              = fmt.Errorf("window load url failed")
+	ErrPutWindowFailed            = fmt.Errorf("put window failed")
+	ErrGetWindowFailed            = fmt.Errorf("get window failed")
 )
 
 const (
@@ -103,6 +105,8 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrWindowSetPositionFailed:    1028,
 	ErrWorkAreaFailed:             1029,
 	ErrLoadURLFailed:              1030,
+	ErrPutWindowFailed:            1031,
+	ErrGetWindowFailed:            1032,
 }
 
 func ErrMsg(err error, msg string) error {
