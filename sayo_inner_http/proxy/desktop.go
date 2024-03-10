@@ -86,104 +86,150 @@ func NewWindow(frameworkAddr string, req *NewWindowReq) (string, error) {
 	return resp.Data.(string), nil
 }
 
-func WindowHide(frameworkAddr string, uuid string) error {
-	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowHideURL)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-	}{UUID: uuid})
+func GetWindow(frameworkAddr string, way string, uuid string, argument map[string]interface{}) (result interface{}, err error) {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowExposeURL, "/", way, "/", uuid)
+	code, body, err := utils.Get(url, argument)
 	if err != nil {
-		return err
+		return
 	}
-
 	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowHideFailed, code)
+		err = sayoerror.ErrorInStatusCode(sayoerror.ErrGetWindowFailed, code)
+		return
 	}
 
 	resp := &baseresp.BaseResp{}
 	if err = json.Unmarshal(body, resp); err != nil {
-		return err
+		return
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowHideFailed, int(resp.Code), resp.Msg)
+		err = sayoerror.ErrorInMsgCode(sayoerror.ErrGetWindowFailed, int(resp.Code), resp.Msg)
+		return
 	}
 
-	return nil
+	return resp.Data, nil
 }
 
-func WindowShow(frameworkAddr string, uuid string) error {
-	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowShowURL)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-	}{UUID: uuid})
+func PutWindow(frameworkAddr string, way string, uuid string, argument interface{}) (result interface{}, err error) {
+	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowExposeURL, "/", way, "/", uuid)
+	code, body, err := utils.Put(url, argument)
 	if err != nil {
-		return err
+		return
 	}
-
 	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowShowFailed, code)
+		err = sayoerror.ErrorInStatusCode(sayoerror.ErrPutWindowFailed, code)
+		return
 	}
 
 	resp := &baseresp.BaseResp{}
 	if err = json.Unmarshal(body, resp); err != nil {
-		return err
+		return
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowShowFailed, int(resp.Code), resp.Msg)
+		err = sayoerror.ErrorInMsgCode(sayoerror.ErrPutWindowFailed, int(resp.Code), resp.Msg)
+		return
 	}
 
-	return nil
+	return resp.Data, nil
 }
 
-func WindowSetPosition(frameworkAddr string, uuid string, x int, y int) error {
-	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowSetPosition)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-		X    int    `json:"x"`
-		Y    int    `json:"y"`
-	}{UUID: uuid, X: x, Y: y})
-	if err != nil {
-		return err
-	}
+// func WindowHide(frameworkAddr string, uuid string) error {
+// 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowHideURL)
+// 	code, body, err := utils.Put(url, struct {
+// 		UUID string `json:"uuid"`
+// 	}{UUID: uuid})
+// 	if err != nil {
+// 		return err
+// 	}
 
-	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowSetPositionFailed, code)
-	}
+// 	if code != http.StatusOK {
+// 		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowHideFailed, code)
+// 	}
 
-	resp := &baseresp.BaseResp{}
-	if err = json.Unmarshal(body, resp); err != nil {
-		return err
-	}
-	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowSetPositionFailed, int(resp.Code), resp.Msg)
-	}
+// 	resp := &baseresp.BaseResp{}
+// 	if err = json.Unmarshal(body, resp); err != nil {
+// 		return err
+// 	}
+// 	if resp.Code != sayoerror.SuccessCode {
+// 		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowHideFailed, int(resp.Code), resp.Msg)
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
 
-func LoadURL(frameworkAddr string, uuid string, targetUrl string) error {
-	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowURLURL)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-		URL  string `json:"url"`
-	}{UUID: uuid, URL: targetUrl})
-	if err != nil {
-		return err
-	}
+// func WindowShow(frameworkAddr string, uuid string) error {
+// 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowShowURL)
+// 	code, body, err := utils.Put(url, struct {
+// 		UUID string `json:"uuid"`
+// 	}{UUID: uuid})
+// 	if err != nil {
+// 		return err
+// 	}
 
-	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrLoadURLFailed, code)
-	}
+// 	if code != http.StatusOK {
+// 		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowShowFailed, code)
+// 	}
 
-	resp := &baseresp.BaseResp{}
-	if err = json.Unmarshal(body, resp); err != nil {
-		return err
-	}
-	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrLoadURLFailed, int(resp.Code), resp.Msg)
-	}
+// 	resp := &baseresp.BaseResp{}
+// 	if err = json.Unmarshal(body, resp); err != nil {
+// 		return err
+// 	}
+// 	if resp.Code != sayoerror.SuccessCode {
+// 		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowShowFailed, int(resp.Code), resp.Msg)
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
+
+// func WindowSetPosition(frameworkAddr string, uuid string, x int, y int) error {
+// 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowSetPosition)
+// 	code, body, err := utils.Put(url, struct {
+// 		UUID string `json:"uuid"`
+// 		X    int    `json:"x"`
+// 		Y    int    `json:"y"`
+// 	}{UUID: uuid, X: x, Y: y})
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	if code != http.StatusOK {
+// 		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowSetPositionFailed, code)
+// 	}
+
+// 	resp := &baseresp.BaseResp{}
+// 	if err = json.Unmarshal(body, resp); err != nil {
+// 		return err
+// 	}
+// 	if resp.Code != sayoerror.SuccessCode {
+// 		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowSetPositionFailed, int(resp.Code), resp.Msg)
+// 	}
+
+// 	return nil
+// }
+
+// func LoadURL(frameworkAddr string, uuid string, targetUrl string) error {
+// 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowURLURL)
+// 	code, body, err := utils.Put(url, struct {
+// 		UUID string `json:"uuid"`
+// 		URL  string `json:"url"`
+// 	}{UUID: uuid, URL: targetUrl})
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	if code != http.StatusOK {
+// 		return sayoerror.ErrorInStatusCode(sayoerror.ErrLoadURLFailed, code)
+// 	}
+
+// 	resp := &baseresp.BaseResp{}
+// 	if err = json.Unmarshal(body, resp); err != nil {
+// 		return err
+// 	}
+// 	if resp.Code != sayoerror.SuccessCode {
+// 		return sayoerror.ErrorInMsgCode(sayoerror.ErrLoadURLFailed, int(resp.Code), resp.Msg)
+// 	}
+
+// 	return nil
+// }
 
 func CursorPosition(frameworkAddr string) (x int, y int, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopCursorPossition)
