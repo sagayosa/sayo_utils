@@ -85,9 +85,9 @@ func RegisterHotKey(desktopAddr string, identifier string, hotkey *module.HotKey
 	return nil
 }
 
-func GetWindow(desktopAddr string, way string, uuid string) (result interface{}, err error) {
+func GetWindow(desktopAddr string, way string, uuid string, argument map[string]interface{}) (result interface{}, err error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowExposeURL, "/", way, "/", uuid)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := utils.Get(url, argument)
 	if err != nil {
 		return
 	}
@@ -129,80 +129,6 @@ func PutWindow(desktopAddr string, way string, uuid string, argument interface{}
 	}
 
 	return resp.Data, nil
-}
-
-func WindowHide(desktopAddr string, uuid string) error {
-	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowHideURL)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-	}{UUID: uuid})
-	if err != nil {
-		return err
-	}
-
-	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowHideFailed, code)
-	}
-
-	resp := &baseresp.BaseResp{}
-	if err = json.Unmarshal(body, resp); err != nil {
-		return err
-	}
-	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowHideFailed, int(resp.Code), resp.Msg)
-	}
-
-	return nil
-}
-
-func WindowShow(desktopAddr string, uuid string) error {
-	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowShowURL)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-	}{UUID: uuid})
-	if err != nil {
-		return err
-	}
-
-	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowShowFailed, code)
-	}
-
-	resp := &baseresp.BaseResp{}
-	if err = json.Unmarshal(body, resp); err != nil {
-		return err
-	}
-	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowShowFailed, int(resp.Code), resp.Msg)
-	}
-
-	return nil
-}
-
-func WindowSetPosition(desktopAddr string, uuid string, x int, y int) error {
-	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowSetPosition)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-		X    int    `json:"x"`
-		Y    int    `json:"y"`
-	}{UUID: uuid, X: x, Y: y})
-	if err != nil {
-		return err
-	}
-
-	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrWindowSetPositionFailed, code)
-	}
-
-	resp := &baseresp.BaseResp{}
-	if err = json.Unmarshal(body, resp); err != nil {
-		return err
-	}
-	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrWindowSetPositionFailed, int(resp.Code), resp.Msg)
-	}
-
-	return nil
 }
 
 func CursorPosition(desktopAddr string) (x int, y int, err error) {
@@ -269,29 +195,4 @@ func WorkArea(desktopAddr string) (width int, height int, err error) {
 	}
 
 	return result.Width, result.Height, nil
-}
-
-func LoadURL(desktopAddr string, uuid string, targetUrl string) error {
-	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowURL)
-	code, body, err := utils.Put(url, struct {
-		UUID string `json:"uuid"`
-		URL  string `json:"url"`
-	}{UUID: uuid, URL: targetUrl})
-	if err != nil {
-		return err
-	}
-
-	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrLoadURLFailed, code)
-	}
-
-	resp := &baseresp.BaseResp{}
-	if err = json.Unmarshal(body, resp); err != nil {
-		return err
-	}
-	if resp.Code != sayoerror.SuccessCode {
-		return sayoerror.ErrorInMsgCode(sayoerror.ErrLoadURLFailed, int(resp.Code), resp.Msg)
-	}
-
-	return nil
 }
