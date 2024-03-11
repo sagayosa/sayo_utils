@@ -14,6 +14,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/grteen/sayo_utils/constant"
@@ -236,4 +237,24 @@ func FillSameField(source interface{}, dest interface{}) interface{} {
 
 func SplitIPInfo(info string) (string, string, error) {
 	return net.SplitHostPort(info)
+}
+
+func Debounce(fn func(), delay time.Duration) func() {
+	var mutex sync.Mutex
+	var timer *time.Timer
+
+	return func() {
+		mutex.Lock()
+		defer mutex.Unlock()
+
+		if timer != nil {
+			timer.Stop()
+		}
+
+		timer = time.AfterFunc(delay, func() {
+			mutex.Lock()
+			fn()
+			mutex.Unlock()
+		})
+	}
 }
