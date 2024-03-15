@@ -26,7 +26,7 @@ func PostPlugin(plugin *module.Module, decision *AIDecisionResp) error {
 		return err
 	}
 	if code != http.StatusOK {
-		return sayoerror.ErrorInStatusCode(sayoerror.ErrAIChatFailed, code)
+		return sayoerror.ErrorInStatusCode(sayoerror.ErrPostPluginFailed, code)
 	}
 
 	return nil
