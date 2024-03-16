@@ -62,6 +62,7 @@ var (
 	ErrGetWindowFailed            = fmt.Errorf("get window failed")
 	ErrDesktopNoWindow            = fmt.Errorf("desktop hs no window of this uuid")
 	ErrPostPluginFailed           = fmt.Errorf("post plugin failed")
+	ErrNoAlias                    = fmt.Errorf("no such alias")
 )
 
 const (
@@ -111,6 +112,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrGetWindowFailed:            1032,
 	ErrDesktopNoWindow:            1033,
 	ErrPostPluginFailed:           1034,
+	ErrNoAlias:                    1035,
 }
 
 func ErrMsg(err error, msg string) error {
