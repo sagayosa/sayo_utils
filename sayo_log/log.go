@@ -20,7 +20,7 @@ func init() {
 type Log struct {
 	Message     string `json:"msg"`
 	ErrorString string `json:"err"`
-	Stack       string `json:"stack"`
+	// Stack       string `json:"stack"`
 }
 
 func (l *Log) Err(err error) *Log {
