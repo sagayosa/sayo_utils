@@ -9,11 +9,12 @@ import (
 	"github.com/grteen/sayo_utils/constant"
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
 func GetModuleByRole(frameworkAddr string, role string) (result interface{}, err error) {
-	code, body, err := utils.Get(utils.StringPlus("http://", frameworkAddr, constant.GetModuleByRoleURL), map[string]interface{}{constant.GetModuleByRoleQueryRole: role})
+	code, body, err := sayorpc.Get(utils.StringPlus("http://", frameworkAddr, constant.GetModuleByRoleURL), map[string]interface{}{constant.GetModuleByRoleQueryRole: role})
 	if err != nil {
 		return
 	}
@@ -110,7 +111,7 @@ func GetModulePlugin(frameworkAddr string) (res []*module.Module, err error) {
 }
 
 func Heart(addr string) (bool, error) {
-	code, _, err := utils.Get(utils.StringPlus("http://", addr, "/heart"), nil)
+	code, _, err := sayorpc.Get(utils.StringPlus("http://", addr, "/heart"), nil)
 	if err != nil {
 		return false, err
 	}

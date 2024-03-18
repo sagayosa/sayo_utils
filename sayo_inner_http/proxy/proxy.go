@@ -8,12 +8,13 @@ import (
 	"github.com/grteen/sayo_utils/constant"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
 func PostAICompletion(frameworkAddr string, content string) (result string, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyAICompletionsURL)
-	code, body, err := utils.Post(url, map[string]interface{}{constant.ProxyAICompletionJSONContent: content})
+	code, body, err := sayorpc.Post(url, map[string]interface{}{constant.ProxyAICompletionJSONContent: content})
 	if err != nil {
 		return
 	}
@@ -41,7 +42,7 @@ func PostAICompletion(frameworkAddr string, content string) (result string, err 
 
 func PostVoiceRecognizeLocalFile(frameworkAddr string, path string) (result string, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyVoiceRecognizeVoiceURL)
-	code, body, err := utils.Post(url, map[string]interface{}{constant.ProxyVoiceRecognizeVoiceJSONPath: path})
+	code, body, err := sayorpc.Post(url, map[string]interface{}{constant.ProxyVoiceRecognizeVoiceJSONPath: path})
 	if err != nil {
 		return
 	}
@@ -62,7 +63,7 @@ func PostVoiceRecognizeLocalFile(frameworkAddr string, path string) (result stri
 
 func PostPlugin(frameworkAddr string, req *sayoinnerhttp.AIDecisionResp) error {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyPluginURL)
-	code, body, err := utils.Post(url, req)
+	code, body, err := sayorpc.Post(url, req)
 	if err != nil {
 		return err
 	}

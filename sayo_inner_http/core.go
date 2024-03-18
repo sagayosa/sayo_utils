@@ -7,12 +7,13 @@ import (
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/constant"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
 func CallCoreToPullCenter(coreAddr string) error {
 	url := utils.StringPlus("http://", coreAddr, constant.CorePullCenterURL)
-	code, body, err := utils.Post(url, struct{}{})
+	code, body, err := sayorpc.Post(url, struct{}{})
 	if err != nil {
 		return err
 	}
@@ -33,7 +34,7 @@ func CallCoreToPullCenter(coreAddr string) error {
 
 func CoreVoiceCommand(coreAddr string, path string) error {
 	url := utils.StringPlus("http://", coreAddr, constant.CoreVoiceCommand)
-	code, body, err := utils.Post(url, map[string]interface{}{constant.CoreVoiceCommandJSONPath: path})
+	code, body, err := sayorpc.Post(url, map[string]interface{}{constant.CoreVoiceCommandJSONPath: path})
 	if err != nil {
 		return err
 	}

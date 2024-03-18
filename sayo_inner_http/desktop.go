@@ -8,6 +8,7 @@ import (
 	"github.com/grteen/sayo_utils/constant"
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
@@ -21,7 +22,7 @@ type NewWindowReq struct {
 
 func NewWindow(desktopAddr string, req *NewWindowReq) (string, error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopNewWindowURL)
-	code, body, err := utils.Post(url, req)
+	code, body, err := sayorpc.Post(url, req)
 	if err != nil {
 		return "", err
 	}
@@ -42,7 +43,7 @@ func NewWindow(desktopAddr string, req *NewWindowReq) (string, error) {
 
 func OpenFileSelector(desktopAddr string) (result string, err error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopOpenFileSelectorURL)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := sayorpc.Get(url, nil)
 	if err != nil {
 		return
 	}
@@ -63,7 +64,7 @@ func OpenFileSelector(desktopAddr string) (result string, err error) {
 
 func RegisterHotKey(desktopAddr string, identifier string, hotkey *module.HotKey) error {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopRegisterHotKeyURL)
-	code, body, err := utils.Post(url, struct {
+	code, body, err := sayorpc.Post(url, struct {
 		Identifier string `json:"identifier"`
 		Key        string `json:"key"`
 		Url        string `json:"url"`
@@ -88,7 +89,7 @@ func RegisterHotKey(desktopAddr string, identifier string, hotkey *module.HotKey
 
 func GetWindow(desktopAddr string, way string, uuid string, argument map[string]interface{}) (result interface{}, err error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowExposeURL, "/", way, "/", uuid)
-	code, body, err := utils.Get(url, argument)
+	code, body, err := sayorpc.Get(url, argument)
 	if err != nil {
 		return
 	}
@@ -111,7 +112,7 @@ func GetWindow(desktopAddr string, way string, uuid string, argument map[string]
 
 func PutWindow(desktopAddr string, way string, uuid string, argument interface{}) (result interface{}, err error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWindowExposeURL, "/", way, "/", uuid)
-	code, body, err := utils.Put(url, argument)
+	code, body, err := sayorpc.Put(url, argument)
 	if err != nil {
 		return
 	}
@@ -134,7 +135,7 @@ func PutWindow(desktopAddr string, way string, uuid string, argument interface{}
 
 func CursorPosition(desktopAddr string) (x int, y int, err error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopCursorPossition)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := sayorpc.Get(url, nil)
 	if err != nil {
 		return
 	}
@@ -167,7 +168,7 @@ func CursorPosition(desktopAddr string) (x int, y int, err error) {
 
 func WorkArea(desktopAddr string) (width int, height int, err error) {
 	url := utils.StringPlus("http://", desktopAddr, constant.DesktopWorkArea)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := sayorpc.Get(url, nil)
 	if err != nil {
 		return
 	}

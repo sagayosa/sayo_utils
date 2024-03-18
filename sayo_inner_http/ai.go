@@ -7,6 +7,7 @@ import (
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/constant"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
@@ -37,7 +38,7 @@ func PostAICompletion(aiAddr string, content string) (result interface{}, err er
 		},
 	}
 
-	code, body, err := utils.Post(utils.StringPlus("http://", aiAddr, constant.AICompletionsURL), req)
+	code, body, err := sayorpc.Post(utils.StringPlus("http://", aiAddr, constant.AICompletionsURL), req)
 	if err != nil {
 		return
 	}

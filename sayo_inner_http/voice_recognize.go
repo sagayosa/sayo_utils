@@ -7,6 +7,7 @@ import (
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/constant"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
@@ -15,7 +16,7 @@ type VoiceRecognizeLocalFileReq struct {
 }
 
 func PostVoiceRecognizeLocalFile(recognizeAddr, path string) (result string, err error) {
-	code, body, err := utils.Post(utils.StringPlus("http://", recognizeAddr, constant.VoiceRecognizeURL), &VoiceRecognizeLocalFileReq{path})
+	code, body, err := sayorpc.Post(utils.StringPlus("http://", recognizeAddr, constant.VoiceRecognizeURL), &VoiceRecognizeLocalFileReq{path})
 	if err != nil {
 		return
 	}

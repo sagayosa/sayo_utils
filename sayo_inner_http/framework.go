@@ -8,11 +8,12 @@ import (
 	"github.com/grteen/sayo_utils/constant"
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
 func PullCenter(frameworkURL string) (result *module.Center, err error) {
-	code, body, err := utils.Get(utils.StringPlus("http://", frameworkURL, constant.FrameWorkPullCenterURL), map[string]interface{}{})
+	code, body, err := sayorpc.Get(utils.StringPlus("http://", frameworkURL, constant.FrameWorkPullCenterURL), map[string]interface{}{})
 	if err != nil {
 		return
 	}

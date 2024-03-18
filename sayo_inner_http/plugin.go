@@ -6,6 +6,7 @@ import (
 
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
@@ -21,7 +22,7 @@ func PostPlugin(plugin *module.Module, decision *AIDecisionResp) error {
 	}
 
 	url := utils.StringPlus("http://", plugin.GetIPInfo(), uri)
-	code, _, err := utils.Post(url, decision.Argvs)
+	code, _, err := sayorpc.Post(url, decision.Argvs)
 	if err != nil {
 		return err
 	}

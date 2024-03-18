@@ -7,6 +7,7 @@ import (
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/constant"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	"github.com/grteen/sayo_utils/utils"
 )
 
@@ -18,7 +19,7 @@ type RegisterHotKeyReq struct {
 
 func RegisterHotKey(frameworkAddr string, req *RegisterHotKeyReq) error {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopRegisterHotKeyURL)
-	code, body, err := utils.Post(url, req)
+	code, body, err := sayorpc.Post(url, req)
 	if err != nil {
 		return err
 	}
@@ -39,7 +40,7 @@ func RegisterHotKey(frameworkAddr string, req *RegisterHotKeyReq) error {
 
 func OpenFileSelector(frameworkAddr string) (result string, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopFileSelectorURL)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := sayorpc.Get(url, nil)
 	if err != nil {
 		return
 	}
@@ -68,7 +69,7 @@ type NewWindowReq struct {
 
 func NewWindow(frameworkAddr string, req *NewWindowReq) (string, error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopNewWindowURL)
-	code, body, err := utils.Post(url, req)
+	code, body, err := sayorpc.Post(url, req)
 	if err != nil {
 		return "", err
 	}
@@ -89,7 +90,7 @@ func NewWindow(frameworkAddr string, req *NewWindowReq) (string, error) {
 
 func GetWindow(frameworkAddr string, way string, uuid string, argument map[string]interface{}) (result interface{}, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowExposeURL, "/", way, "/", uuid)
-	code, body, err := utils.Get(url, argument)
+	code, body, err := sayorpc.Get(url, argument)
 	if err != nil {
 		return
 	}
@@ -112,7 +113,7 @@ func GetWindow(frameworkAddr string, way string, uuid string, argument map[strin
 
 func PutWindow(frameworkAddr string, way string, uuid string, argument interface{}) (result interface{}, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowExposeURL, "/", way, "/", uuid)
-	code, body, err := utils.Put(url, argument)
+	code, body, err := sayorpc.Put(url, argument)
 	if err != nil {
 		return
 	}
@@ -135,7 +136,7 @@ func PutWindow(frameworkAddr string, way string, uuid string, argument interface
 
 // func WindowHide(frameworkAddr string, uuid string) error {
 // 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowHideURL)
-// 	code, body, err := utils.Put(url, struct {
+// 	code, body, err := sayorpc.Put(url, struct {
 // 		UUID string `json:"uuid"`
 // 	}{UUID: uuid})
 // 	if err != nil {
@@ -159,7 +160,7 @@ func PutWindow(frameworkAddr string, way string, uuid string, argument interface
 
 // func WindowShow(frameworkAddr string, uuid string) error {
 // 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowShowURL)
-// 	code, body, err := utils.Put(url, struct {
+// 	code, body, err := sayorpc.Put(url, struct {
 // 		UUID string `json:"uuid"`
 // 	}{UUID: uuid})
 // 	if err != nil {
@@ -183,7 +184,7 @@ func PutWindow(frameworkAddr string, way string, uuid string, argument interface
 
 // func WindowSetPosition(frameworkAddr string, uuid string, x int, y int) error {
 // 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowSetPosition)
-// 	code, body, err := utils.Put(url, struct {
+// 	code, body, err := sayorpc.Put(url, struct {
 // 		UUID string `json:"uuid"`
 // 		X    int    `json:"x"`
 // 		Y    int    `json:"y"`
@@ -209,7 +210,7 @@ func PutWindow(frameworkAddr string, way string, uuid string, argument interface
 
 // func LoadURL(frameworkAddr string, uuid string, targetUrl string) error {
 // 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWindowURLURL)
-// 	code, body, err := utils.Put(url, struct {
+// 	code, body, err := sayorpc.Put(url, struct {
 // 		UUID string `json:"uuid"`
 // 		URL  string `json:"url"`
 // 	}{UUID: uuid, URL: targetUrl})
@@ -234,7 +235,7 @@ func PutWindow(frameworkAddr string, way string, uuid string, argument interface
 
 func CursorPosition(frameworkAddr string) (x int, y int, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopCursorPossition)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := sayorpc.Get(url, nil)
 	if err != nil {
 		return
 	}
@@ -267,7 +268,7 @@ func CursorPosition(frameworkAddr string) (x int, y int, err error) {
 
 func WorkArea(frameworkAddr string) (width int, height int, err error) {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyDesktopWorkArea)
-	code, body, err := utils.Get(url, nil)
+	code, body, err := sayorpc.Get(url, nil)
 	if err != nil {
 		return
 	}
