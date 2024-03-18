@@ -42,3 +42,11 @@ type GetModuleByRoleReq struct {
 type VoiceRecognizeLocalFileReq struct {
 	Path string `json:"path"`
 }
+
+type ProxyAICompletionReq struct {
+	Content string `json:"content"`
+}
+
+type ProxyVoiceRecognizeVoiceReq struct {
+	Path string `json:"path"`
+}
