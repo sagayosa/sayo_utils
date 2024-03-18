@@ -1,0 +1,15 @@
+package sdk
+
+type NewWindowReq struct {
+	Theme    string      `json:"theme"`
+	Url      string      `json:"url"`
+	Frame    bool        `json:"frame"`
+	Dragable bool        `json:"dragable"`
+	Option   interface{} `json:"option"`
+}
+
+type RegisterHotKeyReq struct {
+	Identifier string `json:"identifier"`
+	Key        string `json:"key"`
+	Url        string `json:"url"`
+}
