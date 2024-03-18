@@ -1,19 +1,90 @@
 package sayorpc
 
-import "github.com/grteen/sayo_utils/utils"
+import (
+	"encoding/json"
+	"net/http"
 
-func DirectGet(addr string, uri string, data map[string]interface{}) (code int, body []byte, err error) {
-	return Get(utils.StringPlus("http://", addr, uri), data)
+	baseresp "github.com/grteen/sayo_utils/base_resp"
+	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	"github.com/grteen/sayo_utils/utils"
+)
+
+func DirectGet(addr string, uri string, data map[string]interface{}) (result interface{}, err error) {
+	code, body, err := Get(utils.StringPlus("http://", addr, uri), data)
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+	}
+
+	return resp.Data, nil
 }
 
-func DirectPost(addr string, uri string, data interface{}) (code int, body []byte, err error) {
-	return Post(utils.StringPlus("http://", addr, uri), data)
+func DirectPost(addr string, uri string, data interface{}) (result interface{}, err error) {
+	code, body, err := Post(utils.StringPlus("http://", addr, uri), data)
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+	}
+
+	return resp.Data, nil
 }
 
-func DirectPut(addr string, uri string, data interface{}) (code int, body []byte, err error) {
-	return Put(utils.StringPlus("http://", addr, uri), data)
+func DirectPut(addr string, uri string, data interface{}) (result interface{}, err error) {
+	code, body, err := Put(utils.StringPlus("http://", addr, uri), data)
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+	}
+
+	return resp.Data, nil
 }
 
-func DirectDelete(addr string, uri string, data interface{}) (code int, body []byte, err error) {
-	return Delete(utils.StringPlus("http://", addr, uri), data)
+func DirectDelete(addr string, uri string, data interface{}) (result interface{}, err error) {
+	code, body, err := Delete(utils.StringPlus("http://", addr, uri), data)
+	if err != nil {
+		return
+	}
+	if code != http.StatusOK {
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+	}
+
+	resp := &baseresp.BaseResp{}
+	if err = json.Unmarshal(body, resp); err != nil {
+		return
+	}
+	if resp.Code != sayoerror.SuccessCode {
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+	}
+
+	return resp.Data, nil
 }
