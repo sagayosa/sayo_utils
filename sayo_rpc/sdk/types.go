@@ -30,3 +30,7 @@ type AIDecisionResp struct {
 	Root  string                 `json:"root"`
 	Argvs map[string]interface{} `json:"argvs"`
 }
+
+type CoreVoiceCommandReq struct {
+	Path string `json:"path"`
+}
