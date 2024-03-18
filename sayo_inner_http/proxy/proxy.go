@@ -7,8 +7,8 @@ import (
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/constant"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
 	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
+	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
 	"github.com/grteen/sayo_utils/utils"
 )
 
@@ -61,7 +61,7 @@ func PostVoiceRecognizeLocalFile(frameworkAddr string, path string) (result stri
 	return resp.Data.(string), nil
 }
 
-func PostPlugin(frameworkAddr string, req *sayoinnerhttp.AIDecisionResp) error {
+func PostPlugin(frameworkAddr string, req *sdk.AIDecisionResp) error {
 	url := utils.StringPlus("http://", frameworkAddr, constant.ProxyPluginURL)
 	code, body, err := sayorpc.Post(url, req)
 	if err != nil {

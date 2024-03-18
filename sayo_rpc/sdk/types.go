@@ -13,3 +13,20 @@ type RegisterHotKeyReq struct {
 	Key        string `json:"key"`
 	Url        string `json:"url"`
 }
+
+type AICompletionsReq struct {
+	Model       string     `json:"model"`
+	Messages    []Messages `json:"messages"`
+	Temperature int        `json:"temperature"`
+	Stream      bool       `json:"stream"`
+}
+
+type Messages struct {
+	Role    string `json:"role"`
+	Content string `json:"content"`
+}
+
+type AIDecisionResp struct {
+	Root  string                 `json:"root"`
+	Argvs map[string]interface{} `json:"argvs"`
+}
