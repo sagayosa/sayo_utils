@@ -34,3 +34,7 @@ type AIDecisionResp struct {
 type CoreVoiceCommandReq struct {
 	Path string `json:"path"`
 }
+
+type GetModuleByRoleReq struct {
+	Role string `json:"role"`
+}
