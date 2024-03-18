@@ -38,3 +38,7 @@ type CoreVoiceCommandReq struct {
 type GetModuleByRoleReq struct {
 	Role string `json:"role"`
 }
+
+type VoiceRecognizeLocalFileReq struct {
+	Path string `json:"path"`
+}
