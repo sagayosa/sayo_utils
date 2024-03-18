@@ -63,6 +63,7 @@ var (
 	ErrDesktopNoWindow            = fmt.Errorf("desktop hs no window of this uuid")
 	ErrPostPluginFailed           = fmt.Errorf("post plugin failed")
 	ErrNoAlias                    = fmt.Errorf("no such alias")
+	ErrDirectHttpFailed           = fmt.Errorf("direct http request failed")
 )
 
 const (

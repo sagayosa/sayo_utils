@@ -15,7 +15,7 @@ func DirectGet(addr string, uri string, data map[string]interface{}) (result int
 		return
 	}
 	if code != http.StatusOK {
-		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrDirectHttpFailed, code)
 	}
 
 	resp := &baseresp.BaseResp{}
@@ -23,7 +23,7 @@ func DirectGet(addr string, uri string, data map[string]interface{}) (result int
 		return
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrDirectHttpFailed, int(resp.Code), resp.Msg)
 	}
 
 	return resp.Data, nil
@@ -35,7 +35,7 @@ func DirectPost(addr string, uri string, data interface{}) (result interface{}, 
 		return
 	}
 	if code != http.StatusOK {
-		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrDirectHttpFailed, code)
 	}
 
 	resp := &baseresp.BaseResp{}
@@ -43,7 +43,7 @@ func DirectPost(addr string, uri string, data interface{}) (result interface{}, 
 		return
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrDirectHttpFailed, int(resp.Code), resp.Msg)
 	}
 
 	return resp.Data, nil
@@ -55,7 +55,7 @@ func DirectPut(addr string, uri string, data interface{}) (result interface{}, e
 		return
 	}
 	if code != http.StatusOK {
-		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrDirectHttpFailed, code)
 	}
 
 	resp := &baseresp.BaseResp{}
@@ -63,7 +63,7 @@ func DirectPut(addr string, uri string, data interface{}) (result interface{}, e
 		return
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrDirectHttpFailed, int(resp.Code), resp.Msg)
 	}
 
 	return resp.Data, nil
@@ -75,7 +75,7 @@ func DirectDelete(addr string, uri string, data interface{}) (result interface{}
 		return
 	}
 	if code != http.StatusOK {
-		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrOpenFileSelectorFailed, code)
+		return "", sayoerror.ErrorInStatusCode(sayoerror.ErrDirectHttpFailed, code)
 	}
 
 	resp := &baseresp.BaseResp{}
@@ -83,7 +83,7 @@ func DirectDelete(addr string, uri string, data interface{}) (result interface{}
 		return
 	}
 	if resp.Code != sayoerror.SuccessCode {
-		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrOpenFileSelectorFailed, int(resp.Code), resp.Msg)
+		return "", sayoerror.ErrorInMsgCode(sayoerror.ErrDirectHttpFailed, int(resp.Code), resp.Msg)
 	}
 
 	return resp.Data, nil
