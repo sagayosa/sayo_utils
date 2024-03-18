@@ -26,7 +26,7 @@ func PostAICompletion(frameworkAddr string, content string) (string, error) {
 }
 
 func PostVoiceRecognizeLocalFile(frameworkAddr string, path string) (string, error) {
-	result, err := sayorpc.DirectPost(frameworkAddr, constant.ProxyAICompletionsURL, &sdk.ProxyVoiceRecognizeVoiceReq{
+	result, err := sayorpc.DirectPost(frameworkAddr, constant.ProxyVoiceRecognizeVoiceURL, &sdk.ProxyVoiceRecognizeVoiceReq{
 		Path: path,
 	})
 	if err != nil {
