@@ -1,4 +1,4 @@
-module github.com/grteen/sayo_utils
+module github.com/sagayosa/sayo_utils
 
 go 1.21.6
 
