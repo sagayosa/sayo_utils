@@ -1,9 +1,9 @@
 package sayoiris
 
 import (
-	baseresp "github.com/grteen/sayo_utils/base_resp"
-	sayolog "github.com/grteen/sayo_utils/sayo_log"
 	"github.com/kataras/iris/v12"
+	baseresp "github.com/sagayosa/sayo_utils/base_resp"
+	sayolog "github.com/sagayosa/sayo_utils/sayo_log"
 )
 
 type HandlerFunc func(iris.Context)

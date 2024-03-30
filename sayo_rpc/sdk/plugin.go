@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/grteen/sayo_utils/module"
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
-	"github.com/grteen/sayo_utils/utils"
+	"github.com/sagayosa/sayo_utils/module"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
+	sayorpc "github.com/sagayosa/sayo_utils/sayo_rpc"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 func PostPlugin(plugin *module.Module, decision *AIDecisionResp) error {

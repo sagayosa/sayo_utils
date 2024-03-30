@@ -1,10 +1,10 @@
 package proxy
 
 import (
-	"github.com/grteen/sayo_utils/constant"
-	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
-	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
-	"github.com/grteen/sayo_utils/utils"
+	"github.com/sagayosa/sayo_utils/constant"
+	sayorpc "github.com/sagayosa/sayo_utils/sayo_rpc"
+	"github.com/sagayosa/sayo_utils/sayo_rpc/sdk"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 func PostAICompletion(frameworkAddr string, content string) (string, error) {

@@ -3,8 +3,8 @@ package baseresp
 import (
 	"fmt"
 
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	"github.com/grteen/sayo_utils/utils"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 type BaseResp struct {

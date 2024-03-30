@@ -3,7 +3,7 @@ package module
 import (
 	"strconv"
 
-	"github.com/grteen/sayo_utils/utils"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 const (

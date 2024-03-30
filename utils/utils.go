@@ -14,8 +14,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/grteen/sayo_utils/constant"
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	"github.com/sagayosa/sayo_utils/constant"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
 )
 
 func StringPlus(segments ...string) string {

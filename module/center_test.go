@@ -3,7 +3,7 @@ package module
 import (
 	"testing"
 
-	utils "github.com/grteen/sayo_utils/utils"
+	utils "github.com/sagayosa/sayo_utils/utils"
 )
 
 var (

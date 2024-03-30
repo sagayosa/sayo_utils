@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	baseresp "github.com/grteen/sayo_utils/base_resp"
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	"github.com/grteen/sayo_utils/utils"
+	baseresp "github.com/sagayosa/sayo_utils/base_resp"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 func DirectGet(addr string, uri string, data map[string]interface{}) (result interface{}, err error) {
