@@ -64,6 +64,7 @@ var (
 	ErrPostPluginFailed           = fmt.Errorf("post plugin failed")
 	ErrNoAlias                    = fmt.Errorf("no such alias")
 	ErrDirectHttpFailed           = fmt.Errorf("direct http request failed")
+	ErrUnSupportedMethod          = fmt.Errorf("method is not supported")
 )
 
 const (
@@ -114,6 +115,7 @@ var errorMp map[error]int32 = map[error]int32{
 	ErrDesktopNoWindow:            1033,
 	ErrPostPluginFailed:           1034,
 	ErrNoAlias:                    1035,
+	ErrUnSupportedMethod:          1036,
 }
 
 func ErrMsg(err error, msg string) error {
