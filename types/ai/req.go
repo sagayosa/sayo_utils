@@ -1,6 +1,6 @@
 package aitypes
 
-// POST chat/completions
+// POST /chat/completions
 type CompletionsReq struct {
 	Model       string     `json:"model"`
 	Messages    []Messages `json:"messages"`
@@ -19,7 +19,7 @@ type UpdateConfigReq struct {
 	Model          string `json:"model"`
 }
 
-// POST chat/decision
+// POST /chat/decision
 type DecisionReq struct {
 	Content string `json:"content"`
 }
