@@ -8,7 +8,7 @@ import (
 
 func Get[T any](addr string, uri string, opt any) T {
 	var result T
-	resp := goya.Get[*baseresp.BaseResp](utils.StringPlus("http://", addr, "/", uri), opt)
+	resp := goya.Get[*baseresp.BaseResp](utils.StringPlus("http://", addr, uri), opt)
 	if resp == nil {
 		return result
 	}
@@ -22,7 +22,7 @@ func Get[T any](addr string, uri string, opt any) T {
 
 func Post[T any](addr string, uri string, opt any) T {
 	var result T
-	resp := goya.Post[*baseresp.BaseResp](utils.StringPlus("http://", addr, "/", uri), opt)
+	resp := goya.Post[*baseresp.BaseResp](utils.StringPlus("http://", addr, uri), opt)
 	if resp == nil {
 		return result
 	}
@@ -36,7 +36,7 @@ func Post[T any](addr string, uri string, opt any) T {
 
 func Put[T any](addr string, uri string, opt any) T {
 	var result T
-	resp := goya.Put[*baseresp.BaseResp](utils.StringPlus("http://", addr, "/", uri), opt)
+	resp := goya.Put[*baseresp.BaseResp](utils.StringPlus("http://", addr, uri), opt)
 	if resp == nil {
 		return result
 	}
@@ -50,7 +50,7 @@ func Put[T any](addr string, uri string, opt any) T {
 
 func Delete[T any](addr string, uri string, opt any) T {
 	var result T
-	resp := goya.Delete[*baseresp.BaseResp](utils.StringPlus("http://", addr, "/", uri), opt)
+	resp := goya.Delete[*baseresp.BaseResp](utils.StringPlus("http://", addr, uri), opt)
 	if resp == nil {
 		return result
 	}
