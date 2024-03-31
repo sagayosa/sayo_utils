@@ -30,6 +30,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/sagayosa/goya v0.0.0-20240330113812-8e54417c6d46 // indirect
 	github.com/schollz/closestmatch v2.1.0+incompatible // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/tdewolff/minify/v2 v2.20.14 // indirect
