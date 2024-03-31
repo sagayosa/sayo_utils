@@ -20,10 +20,14 @@ const (
 	GetModuleByRoleURL       = "/module/role"
 	GetModuleByRoleQueryRole = "role"
 
-	VoiceRecognizeURL          = "/voice"
-	AICompletionsURL           = "/chat/completions"
-	FrameWorkPullCenterURL     = "/module/pull"
-	CorePullCenterURL          = "/pull"
+	VoiceRecognizeURL = "/voice"
+
+	AICompletionsURL = "/chat/completions"
+	AIDecisionURL    = "/chat/decision"
+
+	// FrameWorkPullCenterURL     = "/module/pull"
+	// CorePullCenterURL          = "/pull"
+
 	DesktopNewWindowURL        = "/window"
 	DesktopOpenFileSelectorURL = "/fileselector"
 	DesktopRegisterHotKeyURL   = "/hotkey"
@@ -31,8 +35,8 @@ const (
 	DesktopCursorPossition     = "/info/cursorposition"
 	DesktopWorkArea            = "/info/workarea"
 
-	CoreVoiceCommand         = "/command/voice"
-	CoreVoiceCommandJSONPath = "path"
+	CoreVoiceCommand = "/command/voice"
+	// CoreVoiceCommandJSONPath = "path"
 
 	ProxyAICompletionsURL             = "/proxy/ai/chat/completions"
 	ProxyAICompletionsJSONUserCommand = "usercommand"
