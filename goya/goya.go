@@ -1,4 +1,4 @@
-package goya
+package goyawp
 
 import (
 	"github.com/sagayosa/goya"
