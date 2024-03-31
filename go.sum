@@ -86,6 +86,8 @@ github.com/russross/blackfriday/v2 v2.1.0 h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/sagayosa/goya v0.0.0-20240330113812-8e54417c6d46 h1:FjniMCKUgaSW93WmUsXQR/YMPKNJ1KYE+UmET3uuqWg=
 github.com/sagayosa/goya v0.0.0-20240330113812-8e54417c6d46/go.mod h1:MEBo+LX/E2iak/Nk64X2F2FOW4/hgDh04NlW8kyKFII=
+github.com/sagayosa/goya v0.0.0-20240331084214-92e3e0433b06 h1:BmDp3/RhbUKsD6H9mzba0FWNcQZhklvWOlr7MQI3GyU=
+github.com/sagayosa/goya v0.0.0-20240331084214-92e3e0433b06/go.mod h1:MEBo+LX/E2iak/Nk64X2F2FOW4/hgDh04NlW8kyKFII=
 github.com/sanity-io/litter v1.5.5 h1:iE+sBxPBzoK6uaEP5Lt3fHNgpKcHXc/A2HGETy0uJQo=
 github.com/sanity-io/litter v1.5.5/go.mod h1:9gzJgR2i4ZpjZHsKvUXIRQVk7P+yM3e+jAF7bU2UI5U=
 github.com/schollz/closestmatch v2.1.0+incompatible h1:Uel2GXEpJqOWBrlyI+oY9LTiyyjYS17cCYRqP13/SHk=
