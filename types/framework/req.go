@@ -7,5 +7,6 @@ type GetModuleByRoleReq struct {
 
 // POST /proxy/plugin
 type ProxyPluginReq struct {
-	Content string `json:"content"`
+	Root  string                 `json:"root"`
+	Argvs map[string]interface{} `json:"argvs"`
 }
